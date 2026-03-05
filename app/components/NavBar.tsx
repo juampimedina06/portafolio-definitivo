@@ -3,7 +3,7 @@ import logo from '@/public/imagenes/traje_sinfondo.png'
 
 const NavBar = () => {
   return (
-    <header className=' fixed z-10 w-full bg-black h-4'>
+    <header className=' fixed z-100 w-full bg-black h-4'>
       <nav className='flex items-center '>
         <div className='flex bg-black w-38 gap-2 rounded-rl-2 relative bg-black h-20 rounded-br-[30px] items-center'>
           <svg className="svg-corner corner-content-box-one absolute left-38 bottom-8.5" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path d="M30 0H0V30C0 13.431 13.431 0 30 0Z" fill="#000"></path></g><defs><clipPath id="clip0_310_2"><rect width="30" height="30" fill="white"></rect></clipPath></defs></svg>
@@ -17,14 +17,14 @@ const NavBar = () => {
         <div className=''>
           <PillNav
             items={[
-              { label: 'Home', href: '/' },
-              { label: 'About', href: '#about' },
-              { label: 'Experiences', href: '#experiences' },
-              { label: 'Projects', href: '#projects' },
-              { label: 'Skills', href: '#skills' },
-              { label: 'Contact', href: '#contact' },
+              { label: 'Home', href: '#inicio' },
+              { label: 'About', href: '#sobre-mi' },
+              { label: 'Experiences', href: '#experiencia' },
+              { label: 'Projects', href: '#proyectos' },
+              { label: 'Skills', href: '#habilidades' },
+              { label: 'Contact', href: '#contacto' },
             ]}
-            activeHref="/"
+            activeHref="#inicio"
             className="custom-nav"
             ease="power2.easeOut"
             baseColor="#000000"

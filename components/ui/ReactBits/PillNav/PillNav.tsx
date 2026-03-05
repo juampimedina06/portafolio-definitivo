@@ -11,8 +11,6 @@ export type PillNavItem = {
 };
 
 export interface PillNavProps {
-  logo: string;
-  logoAlt?: string;
   items: PillNavItem[];
   activeHref?: string;
   className?: string;
@@ -45,7 +43,6 @@ const PillNav: React.FC<PillNavProps> = ({
   const hamburgerRef = useRef<HTMLButtonElement | null>(null);
   const mobileMenuRef = useRef<HTMLDivElement | null>(null);
   const navItemsRef = useRef<HTMLDivElement | null>(null);
-  const logoRef = useRef<HTMLAnchorElement | HTMLElement | null>(null);
 
   useEffect(() => {
     const layout = () => {
@@ -111,28 +108,7 @@ const PillNav: React.FC<PillNavProps> = ({
       gsap.set(menu, { visibility: 'hidden', opacity: 0, scaleY: 1 });
     }
 
-    if (initialLoadAnimation) {
-      const logo = logoRef.current;
-      const navItems = navItemsRef.current;
 
-      if (logo) {
-        gsap.set(logo, { scale: 0 });
-        gsap.to(logo, {
-          scale: 1,
-          duration: 0.6,
-          ease
-        });
-      }
-
-      if (navItems) {
-        gsap.set(navItems, { width: 0, overflow: 'hidden' });
-        gsap.to(navItems, {
-          width: 'auto',
-          duration: 0.6,
-          ease
-        });
-      }
-    }
 
     return () => window.removeEventListener('resize', onResize);
   }, [items, ease, initialLoadAnimation]);
