@@ -22,7 +22,7 @@ const experiences: Experience[] = [
     description: 'Durante mi pasantía de tres meses como desarrollador Front-End participé en el desarrollo de dos proyectos web utilizando React, JavaScript, Tailwind CSS y Three.js. En el primer proyecto trabajé junto a un equipo de tres desarrolladores en la creación de la landing page institucional de la empresa. El desarrollo se guiaba a partir de prototipos definidos en Figma y mi responsabilidad principal fue implementar distintas secciones de la interfaz, construir componentes reutilizables y realizar ajustes en animaciones y elementos interactivos. También trabajé con componentes 3D integrados con Three.js y utilicé Context API para gestionar y mostrar información dinámica dentro de la aplicación.',
     linkProyecto: 'https://hyperrealitycompany.com/',
     descriptionDos: 'En el segundo proyecto colaboré directamente con el CTO en el desarrollo de una web para una productora de café. En este caso trabajé de forma más autónoma, recibiendo tareas específicas relacionadas con la implementación de nuevas secciones y la mejora de la experiencia visual del sitio. Gran parte del trabajo se centró en la integración y corrección de animaciones, así como en el ajuste de botones y componentes de la interfaz para garantizar su correcto funcionamiento y coherencia dentro del diseño general del proyecto. Este proyecto reforzó mi capacidad de resolver problemas de interfaz y mantener consistencia en componentes dentro de aplicaciones React.',
-    linkProyectoDos: '',
+    linkProyectoDos: 'https://green-book-web.netlify.app/',
     tech: ['React', 'JavaScript', 'ThreeJS', 'Figma', 'TailwindCSS'],
   },
   {
@@ -110,7 +110,12 @@ const ExperienceCard = ({ exp, index }: { exp: Experience; index: number }) => {
 
         {exp.descriptionDos && (
           <p className='text-white/55 text-sm md:text-base leading-relaxed mb-6'>
-            {exp.descriptionDos}
+            {exp.descriptionDos}{exp.linkProyectoDos && (
+              <a href={exp.linkProyectoDos} target='_blank' rel='noopener noreferrer' className='text-white text-sm md:text-base leading-relaxed mb-6 transition-colors duration-200 p-2 pl-0 flex items-center gap-2'>
+                Ver Proyecto
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="rgba(255,255,255,1)"><path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L18.9999 6.413L11.2071 14.2071L9.79289 12.7929L17.5849 5H13V3H21Z"></path></svg>
+              </a>
+            )}
           </p>
         )}
 

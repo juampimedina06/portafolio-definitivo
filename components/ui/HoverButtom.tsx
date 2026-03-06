@@ -1,12 +1,17 @@
 "use client";
 
-export default function HoverButton({color, background, children, border, link}: {color: string, background: string, children: React.ReactNode, border?: string, link?: string}) {
+import { useId } from "react";
+
+export default function HoverButton({ color, background, children, border, link }: { color: string, background: string, children: React.ReactNode, border?: string, link?: string }) {
+  const id = useId().replace(/:/g, "");
+  const btnClass = `btn-modern-${id}`;
+
   return (
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600&display=swap');
 
-        .btn-modern {
+        .${btnClass} {
           font-family: 'DM Sans', sans-serif;
           position: relative;
           display: inline-flex;
@@ -27,7 +32,7 @@ export default function HoverButton({color, background, children, border, link}:
         }
 
         /* Sliding background fill */
-        .btn-modern::before {
+        .${btnClass}::before {
           content: '';
           position: absolute;
           inset: 0;
@@ -38,16 +43,16 @@ export default function HoverButton({color, background, children, border, link}:
           z-index: 0;
         }
 
-        .btn-modern:hover::before {
+        .${btnClass}:hover::before {
           transform: translateY(0%);
         }
 
-        .btn-modern:hover {
+        .${btnClass}:hover {
           border-color: #e0e0e0;
         }
 
         /* Text wrapper: clips overflow so letters slide in/out */
-        .btn-text-wrap {
+        .${btnClass} .btn-text-wrap {
           position: relative;
           display: inline-flex;
           flex-direction: column;
@@ -57,16 +62,16 @@ export default function HoverButton({color, background, children, border, link}:
         }
 
         /* Original text — slides out downward on hover */
-        .btn-text-top {
+        .${btnClass} .btn-text-top {
           display: block;
-          color: #fff;
+          color: ${color};
           transform: translateY(0);
           transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
                       color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* Clone text — slides in from above on hover */
-        .btn-text-bottom {
+        .${btnClass} .btn-text-bottom {
           display: block;
           position: absolute;
           top: 0;
@@ -77,22 +82,22 @@ export default function HoverButton({color, background, children, border, link}:
           transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .btn-modern:hover .btn-text-top {
+        .${btnClass}:hover .btn-text-top {
           transform: translateY(110%);
           color: #0a0a0a;
         }
 
-        .btn-modern:hover .btn-text-bottom {
+        .${btnClass}:hover .btn-text-bottom {
           transform: translateY(0);
         }
       `}</style>
 
-        <a href={link} className="btn-modern">
-          <span className="btn-text-wrap">
-            <span className="btn-text-top">{children}</span>
-            <span className="btn-text-bottom">{children}</span>
-          </span>
-        </a>
+      <a href={link} className={btnClass}>
+        <span className="btn-text-wrap">
+          <span className="btn-text-top">{children}</span>
+          <span className="btn-text-bottom">{children}</span>
+        </span>
+      </a>
     </>
   );
 }
