@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portafolio Profesional - Juan Pablo Medina
 
-## Getting Started
+![Juan Pablo Medina Portfolio](public/imagenes/traje.jpg)
 
-First, run the development server:
+Bienvenido a mi portafolio profesional. Soy un **Desarrollador Full Stack** con una fuerte orientación al **Front-End**, enfocado en la **performance**, la **arquitectura limpia** y la **experiencia de usuario (UX)**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Este proyecto es una vitrina de mis habilidades técnicas, proyectos destacados y trayectoria profesional, construido con las tecnologías más modernas y un diseño premium.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Tecnologías y Herramientas
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Mi stack tecnológico está diseñado para crear aplicaciones escalables, rápidas y visualmente impactantes.
 
-## Learn More
+### Front-End
+- **Frameworks:** React 19, Next.js 16, Angular.
+- **Lenguajes:** TypeScript, JavaScript.
+- **Estilos:** Tailwind CSS, CSS3, HTML5.
+- **UI & Animaciones:** Framer Motion, GSAP, React Bits (Iridescence, BlurText, GlareHover), Lucide React, Shadcn UI.
 
-To learn more about Next.js, take a look at the following resources:
+### Back-End & Base de Datos
+- **Entorno:** Node.js, Express.
+- **BaaS:** Supabase.
+- **Databases:** MySQL, PostgreSQL, SQL Server.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Herramientas & Otros
+- **Diseño:** Figma.
+- **Gestión:** Jira (Metodología Scrum), Lucid.
+- **DevOps:** Git, GitHub, Vercel, Postman.
+- **AI Tools:** OpenAI, Claude, Antigravity.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📂 Proyectos Destacados
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 1. Gestor de Clientes - GuargSystems
+**Portal B2B Full-Stack** diseñado para optimizar la transparencia entre la administración y los clientes.
+- **Features:** Sistema de roles, seguimiento de proyectos en tiempo real, portal privado para clientes.
+- **Stack:** React, TypeScript, Next.js, Tailwind CSS, Supabase.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 2. El Pequeño HongKong
+**Portal de Gestión de Stock y E-commerce** para un bazar.
+- **Features:** Carrito de compras persistente, integración con WhatsApp, panel de administración protegido con CRUD de productos.
+- **Stack:** React, TypeScript, Tailwind CSS, Supabase.
+
+### 3. Circular Local
+Plataforma que fomenta la **economía circular** conectando cooperativas y recicladores.
+- **Features:** Gestión de materiales y servicios sustentables, desarrollo bajo metodología Scrum.
+- **Stack:** Angular, TypeScript, Node.js, Express, MySQL.
+
+---
+
+## 💼 Experiencia Profesional
+
+- **Hyper Company (Miami, Florida) - Pasantía Full Stack:** Desarrollo de landing pages institucionales y aplicaciones e-commerce. Integración de componentes 3D con Three.js y gestión de estado con Context API.
+- **Technology with Purpose Foundation - Proyecto Full Stack:** Desarrollo de la plataforma *Circular Local* supervisado por mentores de Santex, utilizando metodologías ágiles.
+
+---
+
+## 🛠️ Instalación y Uso Local
+
+Para ejecutar este proyecto en tu entorno local, sigue estos pasos:
+
+1. **Clona el repositorio:**
+   ```bash
+   git clone https://github.com/juampimedina06/portafolio-definitivo.git
+   ```
+2. **Instala las dependencias:**
+   ```bash
+   npm install
+   ```
+3. **Inicia el servidor de desarrollo:**
+   ```bash
+   npm run dev
+   ```
+4. **Visualiza el proyecto:**
+   Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
+
+---
+
+## ✨ Características Especiales
+
+- **Diseño Responsive:** Optimizado para dispositivos móviles, tablets y desktops.
+- **Micro-animaciones:** Experiencia fluida gracias a Framer Motion y GSAP.
+- **Performance:** Optimización de carga de fuentes e imágenes nativa de Next.js.
+- **Arquitectura:** Componentes modulares y reutilizables.
+
+---
+
+## 📞 Contacto
+
+¿Tienes un proyecto en mente o quieres charlar sobre tecnología?
+
+- **LinkedIn:** [[Tu Perfil de LinkedIn](https://www.linkedin.com/in/juan-pablo-medina-199b3b2b4/)]
+- **Portafolio:** [Enlace a tu portafolio online]
+- **Email:** [[EMAIL_ADDRESS](mailto:[jpmedinagomez1@gmail.com])]
+
+---
+
+Desarrollado con ❤️ por **Juan Pablo Medina**

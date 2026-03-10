@@ -49,7 +49,7 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
   const segunNombreSkills = ({ title }: { title: string }) => {
     const iconWidth = 60
     switch (title) {
-      case 'FRONT':
+      case 'Front':
         return (
           <div className='flex gap-10 items-center flex-wrap'>
             <Html width={iconWidth} />
@@ -61,7 +61,7 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
             <Tailwind width={iconWidth} />
           </div>
         )
-      case 'BACK':
+      case 'Back':
         return (
           <div className='flex gap-10 items-center flex-wrap'>
             <NodeJS width={iconWidth} />
@@ -69,7 +69,7 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
             <Supabase width={iconWidth} />
           </div>
         )
-      case 'BASE DE DATOS':
+      case 'Base de Datos':
         return (
           <div className='flex gap-10 items-center flex-wrap'>
             <PostgreSQL width={iconWidth} />
@@ -77,7 +77,7 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
             <SQLServer width={iconWidth} />
           </div>
         )
-      case 'HERRAMIENTAS':
+      case 'Herramientas':
         return (
           <div className='flex gap-10 items-center flex-wrap'>
             <Git width={iconWidth} />
@@ -87,7 +87,7 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
             <Vercel width={iconWidth} />
           </div>
         )
-      case 'IA TOOLS':
+      case 'IA Tools':
         return (
           <div className='flex gap-10 items-center flex-wrap'>
             <OpenAI width={iconWidth} />
@@ -105,8 +105,8 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => setIsOpen(!isOpen)}
     >
-      <div className='flex justify-between items-center py-4 border-b-8 border-white'>
-        <h3 className='text-6xl md:text-[7rem] text-white transition-transform duration-500 group-hover:translate-x-4 uppercase'>
+      <div className='flex justify-between items-center py-4 border-b-2 border-white'>
+        <h3 className='text-5xl md:text-[7rem] text-white transition-transform duration-500 group-hover:translate-x-4 '>
           {title}
         </h3>
       </div>
@@ -144,11 +144,11 @@ const Skills = () => {
         </span>
       </div>
       <div className='w-full max-w-7xl flex flex-col gap-12'>
-        <AccordionItem title="FRONT" />
-        <AccordionItem title="BACK" />
-        <AccordionItem title="BASE DE DATOS" />
-        <AccordionItem title="HERRAMIENTAS" />
-        <AccordionItem title="IA TOOLS" />
+        <AccordionItem title="Front" />
+        <AccordionItem title="Back" />
+        <AccordionItem title="Base de Datos" />
+        <AccordionItem title="Herramientas" />
+        <AccordionItem title="IA Tools" />
       </div>
     </section>
   )
