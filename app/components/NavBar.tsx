@@ -22,7 +22,7 @@ const NavBar = () => {
               { label: 'About', href: '#sobre-mi' },
               { label: 'Experiences', href: '#experiencia' },
               { label: 'Projects', href: '#proyectos' },
-              { label: 'Skills', href: '#habilidades' },
+              { label: 'Skills', href: '#skills' },
               { label: 'Contact', href: '#contacto' },
             ]}
             activeHref="#inicio"

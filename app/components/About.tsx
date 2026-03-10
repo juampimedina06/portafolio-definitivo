@@ -40,7 +40,8 @@ const About = () => {
             text='Experiencia profesional en entorno productivo trabajando bajo metodología Scrum.
             Perfil analítico, disciplinado y con rápida capacidad de adaptación.'
             delay={50}
-            className='text-white/55 text-sm sm:text-base max-w-3xl leading-relaxed'
+            className='text-white/55 text-sm sm:text-base max-w-3xl leading-relaxed 
+              md:text-base '
           />
           <HoverButton color='white' background='#000' border='white' >Contactame</HoverButton>
         </div>

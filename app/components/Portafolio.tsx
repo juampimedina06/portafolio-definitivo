@@ -108,7 +108,7 @@ const ProjectItem = ({ project, layout }: { project: ProjectData, layout: 'izq' 
         <h3 className='text-4xl md:text-5xl lg:text-5xl font-bold text-white leading-tight'>
           {project.title}
         </h3>
-        <p className='text-gray-400 text-lg leading-relaxed max-w-xl'>
+        <p className='text-white/55 text-sm md:text-base leading-relaxed mb-6'>
           {project.description}
         </p>
         <div className='flex flex-wrap items-center gap-4 mt-2'>
@@ -163,7 +163,7 @@ const ProjectItem = ({ project, layout }: { project: ProjectData, layout: 'izq' 
 
 const Portafolio = () => {
   return (
-    <section className='min-h-screen w-full bg-black flex justify-center items-center flex-col py-24 px-6'>
+    <section id='proyectos' className='min-h-screen w-full bg-black flex justify-center items-center flex-col py-24 px-6'>
       <div className='flex items-center justify-center gap-4 mb-20 w-full max-w-7xl'>
         <span
           style={{ fontFamily: "'DM Mono', monospace" }}
