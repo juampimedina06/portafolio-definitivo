@@ -1,5 +1,6 @@
 'use client'
 import React, { useRef, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import HoverButton from '@/components/ui/HoverButtom'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import {
@@ -53,19 +54,19 @@ const projectsData = [
     primaryButtonText: 'Mas Informacion',
     linkPrimaryButton: '',
     secondaryButtonText: 'Ver Proyecto',
-    linkSecondaryButtonText: '',
+    linkSecondaryButtonText: 'https://peque-hongkong.vercel.app/',
     videoSrc: '/videos/elpequehongkong.mp4',
     technologies: ['react', 'typescript', 'tailwind', 'css', 'supabase'],
   },
   {
     id: 3,
     tag: 'Gestion de Jugadores',
-    title: 'Codebase Animated Website',
-    description: 'A modern, animated website template for codebase ai brand with professional sections. Fully customizable and free to use, perfect for developers, designers, and creative professionals.',
+    title: 'FIFA List (Full Stack)',
+    description: 'Plataforma de gestión deportiva con arquitectura desacoplada. Backend en Node.js/Express con MySQL/Sequelize y frontend modular en Angular 20. Incluye visualización de estadísticas, crud completo de jugadores, exportación a Excel y sistema de seguridad basado en tokens (JWT).',
     primaryButtonText: 'Mas Informacion',
     linkPrimaryButton: '',
     secondaryButtonText: 'Ver Proyecto',
-    linkSecondaryButtonText: '',
+    linkSecondaryButtonText: 'https://github.com/juampimedina06/gestionar-istado-de-jugadores-fifa',
     videoSrc: '/videos/jugadoresFifa.mp4',
     technologies: ['typescript', 'angular', 'css', 'nodejs', 'express', 'mysql'],
   }
@@ -73,7 +74,7 @@ const projectsData = [
 
 type ProjectData = typeof projectsData[0]
 
-const ProjectItem = ({ project, layout }: { project: ProjectData, layout: 'izq' | 'der' }) => {
+const ProjectItem = ({ project, layout, index }: { project: ProjectData, layout: 'izq' | 'der', index: number }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
@@ -98,66 +99,76 @@ const ProjectItem = ({ project, layout }: { project: ProjectData, layout: 'izq' 
     }
   }, [])
 
-  return (
-    <div className={`flex flex-col ${layout === 'izq' ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 lg:gap-20`}>
-      {/* Text Section */}
-      <div className='flex-1 flex flex-col items-start gap-6'>
-        <div className='bg-white/10 border border-white/10 text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider'>
-          {project.tag}
-        </div>
-        <h3 className='text-4xl md:text-5xl lg:text-5xl font-bold text-white leading-tight'>
-          {project.title}
-        </h3>
-        <p className='text-white/55 text-sm md:text-base leading-relaxed mb-6'>
-          {project.description}
-        </p>
-        <div className='flex flex-wrap items-center gap-4 mt-2'>
-          <HoverButton
-            link={project.linkPrimaryButton || '#'}
-            color="#000"
-            background="#fff"
-            border="#fff"
-          >
-            {project.primaryButtonText} <ArrowRight className="w-4 h-4 ml-2 inline-block" />
-          </HoverButton>
-          <HoverButton
-            link={project.linkSecondaryButtonText || '#'}
-            color="#fff"
-            background="transparent"
-            border="rgba(255, 255, 255, 0.2)"
-          >
-            {project.secondaryButtonText} <ArrowUpRight className="w-4 h-4 ml-2 inline-block" />
-          </HoverButton>
-        </div>
+  // Dirección de la animación: par (0,2,...) desde la derecha, impar (1,3,...) desde la izquierda
+  const slideDirection = index % 2 === 0 ? 200 : -200
 
-        {/* Tecnologías mapeadas dinámicamente */}
-        <div className='flex items-center gap-6 text-gray-500 mt-6'>
-          {project.technologies?.map((tech, index) => {
-            const IconComponent = techIconsMap[tech.toLowerCase()]
-            if (!IconComponent) return null
-            return (
-              <div key={index} title={tech} className="cursor-pointer">
-                <IconComponent className="w-5 h-5 hover:text-white transition-colors" />
-              </div>
-            )
-          })}
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: slideDirection }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+    >
+      <div className={`flex flex-col ${layout === 'izq' ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 lg:gap-20`}>
+        {/* Text Section */}
+        <div className='flex-1 flex flex-col items-start gap-6'>
+          <div className='bg-white/10 border border-white/10 text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider'>
+            {project.tag}
+          </div>
+          <h3 className='text-4xl md:text-5xl lg:text-5xl  text-white leading-tight'>
+            {project.title}
+          </h3>
+          <p className='text-white/55 text-sm md:text-base leading-relaxed mb-6'>
+            {project.description}
+          </p>
+          <div className='flex flex-wrap items-center gap-4 mt-2'>
+            <HoverButton
+              link={project.linkPrimaryButton || '#'}
+              color="#000"
+              background="#fff"
+              border="#fff"
+            >
+              {project.primaryButtonText} <ArrowRight className="w-4 h-4 ml-2 inline-block" />
+            </HoverButton>
+            <HoverButton
+              link={project.linkSecondaryButtonText || '#'}
+              color="#fff"
+              background="transparent"
+              border="rgba(255, 255, 255, 0.2)"
+            >
+              {project.secondaryButtonText} <ArrowUpRight className="w-4 h-4 ml-2 inline-block" />
+            </HoverButton>
+          </div>
+
+          {/* Tecnologías mapeadas dinámicamente */}
+          <div className='flex items-center gap-6 text-gray-500 mt-6'>
+            {project.technologies?.map((tech, i) => {
+              const IconComponent = techIconsMap[tech.toLowerCase()]
+              if (!IconComponent) return null
+              return (
+                <div key={i} title={tech} className="cursor-pointer">
+                  <IconComponent className="w-5 h-5 hover:text-white transition-colors" />
+                </div>
+              )
+            })}
+          </div>
+        </div>
+        {/* Video Section */}
+        <div className='flex-1 w-full'>
+          <div className='rounded-2xl overflow-hidden border border-white/10 bg-white/5 relative group shadow-2xl shadow-white/5'>
+            <div className='absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10 pointer-events-none'></div>
+            <video
+              ref={videoRef}
+              src={project.videoSrc}
+              muted
+              loop
+              playsInline
+              className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500"
+            />
+          </div>
         </div>
       </div>
-      {/* Video Section */}
-      <div className='flex-1 w-full'>
-        <div className='rounded-2xl overflow-hidden border border-white/10 bg-white/5 relative group shadow-2xl shadow-white/5'>
-          <div className='absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10 pointer-events-none'></div>
-          <video
-            ref={videoRef}
-            src={project.videoSrc}
-            muted
-            loop
-            playsInline
-            className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500"
-          />
-        </div>
-      </div>
-    </div>
+    </motion.div>
   )
 }
 
@@ -179,6 +190,7 @@ const Portafolio = () => {
             key={project.id}
             project={project}
             layout={index % 2 === 0 ? 'izq' : 'der'}
+            index={index}
           />
         ))}
       </div>

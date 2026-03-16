@@ -5,12 +5,13 @@ import Skills from "./components/Skills";
 import Portafolio from "./components/Portafolio";
 import Contact from "./components/Contact";
 
+
 export default function Home() {
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-between bg-white dark:bg-black sm:items-start">
       <Hero />
-      <Experiences />
       <About />
+      <Experiences />
       <Portafolio />
       <Skills />
       <Contact />

@@ -2,7 +2,7 @@
 
 import { useId } from "react";
 
-export default function HoverButton({ color, background, children, border, link }: { color: string, background: string, children: React.ReactNode, border?: string, link?: string }) {
+export default function HoverButton({ color, background, children, border, link, download }: { color: string, background: string, children: React.ReactNode, border?: string, link?: string, download?: boolean }) {
   const id = useId().replace(/:/g, "");
   const btnClass = `btn-modern-${id}`;
 
@@ -92,12 +92,13 @@ export default function HoverButton({ color, background, children, border, link 
         }
       `}</style>
 
-      <a href={link} className={btnClass}>
+      <a href={link} className={btnClass} download={download}>
         <span className="btn-text-wrap">
           <span className="btn-text-top">{children}</span>
           <span className="btn-text-bottom">{children}</span>
         </span>
       </a>
+
     </>
   );
 }

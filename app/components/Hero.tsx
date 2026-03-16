@@ -5,28 +5,29 @@ import React from 'react'
 
 const Hero = () => {
   return (
-    <section id='inicio' className='w-full h-[90vh] sm:flex gap-4 mt-4'>
-      <div className="relative w-full h-full">
+    <section id='inicio' className='w-full h-[90vh] sm:flex gap-4 mt-4 overflow-hidden'>
+      <div className="relative w-full h-full ">
         <Iridescence mouseReact amplitude={0.1} speed={1} />
+
         <svg className="svg-corner corner-content-box-one relative left-170 bottom-7 rotate-270 " width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path d="M30 0H0V30C0 13.431 13.431 0 30 0Z" fill="#000"></path></g><defs><clipPath id="clip0_310_2"><rect width="30" height="30" fill="white"></rect></clipPath></defs></svg>
         <svg className="svg-corner corner-content-box-one relative bottom-78  rotate-270 " width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path d="M30 0H0V30C0 13.431 13.431 0 30 0Z" fill="#000"></path></g><defs><clipPath id="clip0_310_2"><rect width="30" height="30" fill="white"></rect></clipPath></defs></svg>
         <div className='absolute bottom-0 left-0 bg-black rounded-tr-[30px]'>
-          <div className='h-50 w-170 flex items-center'>
-            <h1 className='text-5xl  text-white w-full'>Full Stack Developer orientado a performance y UX</h1>
+          <div className='h-50 w-full sm:w-170 flex items-center'>
+            <h1 className='sm:text-5xl text-4xl  text-white w-full flex-wrap'>Full Stack Developer orientado a performance y UX</h1>
           </div>
           <div className='h-auto '>
             <HoverButton
               color="#fff"
               background="#000"
               border="#fff"
-              link='#about'
+              link='#sobre-mi'
             >
               ↓
             </HoverButton>
           </div>
         </div>
       </div>
-      <div className=' flex gap-4 flex-col'>
+      <div className='h-full flex gap-4 flex-col '>
         <div className='h-auto'>
           <Carousel
             autoplay={true}
@@ -35,13 +36,23 @@ const Hero = () => {
             loop={true}
           />
         </div>
-        <div className='flex-1 bg-sky-400 rounded-4xl'>
-          <Carousel
-            autoplay={true}
-            autoplayDelay={4500}
-            round={false}
-            loop={true}
-          />
+        <div
+          className='flex-1 bg-[#131011] rounded-4xl p-8 flex flex-col justify-center gap-6 text-black'
+        >
+          <span className='text-[10px] font-bold uppercase tracking-[0.3em] opacity-50 text-white'>Tecnologías Principales</span>
+          <div className='space-y-1'>
+            <div className='flex items-baseline gap-2'>
+              <span className='text-4xl font-black  uppercase text-white'>React</span>
+              <span className='text-sm font-bold opacity-30 text-white'>/ NEXT.JS</span>
+            </div>
+            <div className='flex items-baseline gap-2'>
+              <span className='text-4xl font-black  uppercase text-white'>Node.js</span>
+              <span className='text-sm font-bold opacity-30 text-white'>/ TS</span>
+            </div>
+            <div className='flex items-baseline gap-2'>
+              <span className='text-4xl font-black  uppercase text-white'>PostgreSQL</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

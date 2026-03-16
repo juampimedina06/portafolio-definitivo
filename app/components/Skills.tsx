@@ -46,67 +46,96 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
   // En muchos casos, es mejor manejar el click explícitamente para mobile
   const active = isHovered || isOpen
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.5 }
+    }
+  }
+
   const segunNombreSkills = ({ title }: { title: string }) => {
     const iconWidth = 60
+    const renderIcons = (icons: React.ReactNode[]) => (
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className='flex gap-10 items-center flex-wrap'
+      >
+        {icons.map((icon, index) => (
+          <motion.div key={index} variants={itemVariants}>
+            {icon}
+          </motion.div>
+        ))}
+      </motion.div>
+    )
+
     switch (title) {
       case 'Front':
-        return (
-          <div className='flex gap-10 items-center flex-wrap'>
-            <Html width={iconWidth} />
-            <Css width={iconWidth} />
-            <Javascript width={iconWidth} />
-            <Typescript width={iconWidth} />
-            <ReactIcon width={iconWidth} />
-            <Angular width={iconWidth} />
-            <Tailwind width={iconWidth} />
-          </div>
-        )
+        return renderIcons([
+          <Html width={iconWidth} />,
+          <Css width={iconWidth} />,
+          <Javascript width={iconWidth} />,
+          <Typescript width={iconWidth} />,
+          <ReactIcon width={iconWidth} />,
+          <Angular width={iconWidth} />,
+          <Tailwind width={iconWidth} />
+        ])
       case 'Back':
-        return (
-          <div className='flex gap-10 items-center flex-wrap'>
-            <NodeJS width={iconWidth} />
-            <Express width={iconWidth} />
-            <Supabase width={iconWidth} />
-          </div>
-        )
+        return renderIcons([
+          <NodeJS width={iconWidth} />,
+          <Express width={iconWidth} />,
+          <Supabase width={iconWidth} />
+        ])
       case 'Base de Datos':
-        return (
-          <div className='flex gap-10 items-center flex-wrap'>
-            <PostgreSQL width={iconWidth} />
-            <MySQL width={iconWidth} />
-            <SQLServer width={iconWidth} />
-          </div>
-        )
+        return renderIcons([
+          <PostgreSQL width={iconWidth} />,
+          <MySQL width={iconWidth} />,
+          <SQLServer width={iconWidth} />
+        ])
       case 'Herramientas':
-        return (
-          <div className='flex gap-10 items-center flex-wrap'>
-            <Git width={iconWidth} />
-            <GitHub width={iconWidth} />
-            <Figma width={iconWidth} />
-            <Postman width={iconWidth} />
-            <Vercel width={iconWidth} />
-          </div>
-        )
+        return renderIcons([
+          <Git width={iconWidth} />,
+          <GitHub width={iconWidth} />,
+          <Figma width={iconWidth} />,
+          <Postman width={iconWidth} />,
+          <Vercel width={iconWidth} />
+        ])
       case 'IA Tools':
-        return (
-          <div className='flex gap-10 items-center flex-wrap'>
-            <OpenAI width={iconWidth} />
-            <Claude width={iconWidth} />
-            <Antigravity width={iconWidth} />
-          </div>
-        )
+        return renderIcons([
+          <OpenAI width={iconWidth} />,
+          <Claude width={iconWidth} />,
+          <Antigravity width={iconWidth} />
+        ])
     }
   }
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       className=' group cursor-pointer transition-colors duration-300 hover:border-white/50'
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => setIsOpen(!isOpen)}
     >
       <div className='flex justify-between items-center py-4 border-b-2 border-white'>
-        <h3 className='text-5xl md:text-[7rem] text-white transition-transform duration-500 group-hover:translate-x-4 '>
+        <h3 className='text-5xl md:text-[7rem] text-white transition-transform duration-500 group-hover:translate-x-4  '>
           {title}
         </h3>
       </div>
@@ -114,9 +143,9 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
       <AnimatePresence>
         {active && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            initial={{ height: 0, opacity: 0, y: 10 }}
+            animate={{ height: 'auto', opacity: 1, y: 0 }}
+            exit={{ height: 0, opacity: 0, y: 10 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className='overflow-hidden'
           >
@@ -128,7 +157,7 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   )
 }
 
@@ -144,6 +173,7 @@ const Skills = () => {
         </span>
       </div>
       <div className='w-full max-w-7xl flex flex-col gap-12'>
+
         <AccordionItem title="Front" />
         <AccordionItem title="Back" />
         <AccordionItem title="Base de Datos" />

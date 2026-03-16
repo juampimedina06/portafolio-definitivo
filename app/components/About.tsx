@@ -5,17 +5,12 @@ import HoverButton from '@/components/ui/HoverButtom'
 
 const About = () => {
   return (
-    <section id='sobre-mi' className='relative w-full h-[80vh] flex items-center justify-center py-16 px-6 md:px-16 overflow-hidden'>2
-
-      {/* Etiqueta pequeña arriba */}
-
+    <section id='sobre-mi' className='relative w-full h-[90vh] flex items-center justify-center py-16 px-6 md:px-16 overflow-hidden'>2
 
       <div className='relative z-10 w-full max-w-7xl flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16'>
 
-        {/* Imagen — ocupa ~1/3 */}
         <div className='flex-shrink-0 flex items-center justify-center'>
           <div className='relative'>
-            {/* Borde decorativo */}
             <div className='absolute -inset-1 rounded-[28px] bg-gradient-to-br from-white/20 via-white/5 to-transparent' />
             <img
               src={imagenJuanPabloMedina.src}
@@ -25,11 +20,9 @@ const About = () => {
           </div>
         </div>
 
-        {/* Línea divisora — vertical en desktop, horizontal en mobile */}
         <div className='hidden md:block w-px h-64 bg-gradient-to-b from-transparent via-white/25 to-transparent flex-shrink-0' />
         <div className='md:hidden w-24 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent' />
 
-        {/* Texto — ocupa ~2/3 */}
         <div className='flex-1 flex flex-col items-center md:items-start gap-4 text-center md:text-left'>
           <BlurText
             text='Desarrollador Full Stack con fuerte orientación al Front-End y enfoque en performance, arquitectura limpia y experiencia de usuario.'
@@ -43,7 +36,11 @@ const About = () => {
             className='text-white/55 text-sm sm:text-base max-w-3xl leading-relaxed 
               md:text-base '
           />
-          <HoverButton color='white' background='#000' border='white' >Contactame</HoverButton>
+          <div className='flex gap-4'>
+            <HoverButton color='white' background='#000' border='white' link='#contacto'>Contactame</HoverButton>
+            <HoverButton color='black' background='#fff' border='white' link='/CV_JuanPabloMedina_FullStack.docx' download>Descargar CV</HoverButton>
+          </div>
+
         </div>
       </div>
 

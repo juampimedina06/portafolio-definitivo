@@ -169,7 +169,7 @@
   width: var(--nav-h);
   height: var(--nav-h);
   border-radius: 50%;
-  background: var(--base, #000);
+  background: var(--base, #000000);
   border: none;
   display: none;
   flex-direction: column;
@@ -179,11 +179,14 @@
   cursor: pointer;
   padding: 0;
   position: relative;
+
 }
 
 @media (max-width: 768px) {
   .mobile-menu-button {
     display: flex;
+    left: 300;
+    border: 1px solid #fff;
   }
 }
 
@@ -199,8 +202,6 @@
 .mobile-menu-popover {
   position: absolute;
   top: 3em;
-  left: 1rem;
-  right: 1rem;
   background: var(--base, #f0f0f0);
   border-radius: 27px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
@@ -208,6 +209,7 @@
   opacity: 0;
   transform-origin: top center;
   visibility: hidden;
+  width: 100%;
 }
 
 .mobile-menu-list {
