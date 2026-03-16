@@ -13,15 +13,15 @@ Este proyecto es una vitrina de mis habilidades técnicas, proyectos destacados 
 Mi stack tecnológico está diseñado para crear aplicaciones escalables, rápidas y visualmente impactantes.
 
 ### Front-End
-- **Frameworks:** React 19, Next.js 16, Angular.
+- **Frameworks:** React 19, Next.js 16.
 - **Lenguajes:** TypeScript, JavaScript.
-- **Estilos:** Tailwind CSS, CSS3, HTML5.
-- **UI & Animaciones:** Framer Motion, GSAP, React Bits (Iridescence, BlurText, GlareHover), Lucide React, Shadcn UI.
+- **Estilos:** Tailwind CSS 4, CSS3, HTML5.
+- **UI & Animaciones:** Framer Motion (Motion 12), GSAP, React Bits (Iridescence, Carousel, BlurText), Lucide React, Shadcn UI.
 
 ### Back-End & Base de Datos
 - **Entorno:** Node.js, Express.
 - **BaaS:** Supabase.
-- **Databases:** MySQL, PostgreSQL, SQL Server.
+- **Databases:** PostgreSQL, MySQL, SQL Server.
 
 ### Herramientas & Otros
 - **Diseño:** Figma.
@@ -57,9 +57,19 @@ Plataforma que fomenta la **economía circular** conectando cooperativas y recic
 
 ---
 
+## ✨ Características Especiales
+
+- **Animaciones Premium:** Implementación de animaciones de entrada para habilidades y transiciones fluidas con Framer Motion y GSAP.
+- **Diseño Responsive Pro:** Optimización total para dispositivos móviles, incluyendo carruseles y layouts adaptativos.
+- **Interacción Avanzada:** Efectos de hover dinámicos y micro-interacciones que mejoran la UX.
+- **Gestión de CV:** Botón de descarga de CV integrado y accesible.
+- **Performance:** Optimización nativa de Next.js para carga ultrarrápida.
+
+---
+
 ## 🛠️ Instalación y Uso Local
 
-Para ejecutar este proyecto en tu entorno local, sigue estos pasos:
+Para ejecutar este proyecto en tu entorno local:
 
 1. **Clona el repositorio:**
    ```bash
@@ -74,16 +84,7 @@ Para ejecutar este proyecto en tu entorno local, sigue estos pasos:
    npm run dev
    ```
 4. **Visualiza el proyecto:**
-   Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
-
----
-
-## ✨ Características Especiales
-
-- **Diseño Responsive:** Optimizado para dispositivos móviles, tablets y desktops.
-- **Micro-animaciones:** Experiencia fluida gracias a Framer Motion y GSAP.
-- **Performance:** Optimización de carga de fuentes e imágenes nativa de Next.js.
-- **Arquitectura:** Componentes modulares y reutilizables.
+   Abre [http://localhost:3000](http://localhost:3000).
 
 ---
 
@@ -91,9 +92,9 @@ Para ejecutar este proyecto en tu entorno local, sigue estos pasos:
 
 ¿Tienes un proyecto en mente o quieres charlar sobre tecnología?
 
-- **LinkedIn:** [[Tu Perfil de LinkedIn](https://www.linkedin.com/in/juan-pablo-medina-199b3b2b4/)]
-- **Portafolio:** [Enlace a tu portafolio online]
-- **Email:** [[EMAIL_ADDRESS](mailto:[jpmedinagomez1@gmail.com])]
+- **LinkedIn:** [Juan Pablo Medina](https://www.linkedin.com/in/juan-pablo-medina-199b3b2b4/)
+- **Email:** [jpmedinagomez1@gmail.com](mailto:jpmedinagomez1@gmail.com)
+- **Portafolio:** [juampimedina.dev](https://juampimedina.dev) *(Actualiza con tu URL real)*
 
 ---
 
