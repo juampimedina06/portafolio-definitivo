@@ -128,7 +128,7 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as any }}
       className=' group cursor-pointer transition-colors duration-300 hover:border-white/50'
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -146,7 +146,7 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
             initial={{ height: 0, opacity: 0, y: 10 }}
             animate={{ height: 'auto', opacity: 1, y: 0 }}
             exit={{ height: 0, opacity: 0, y: 10 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as any }}
             className='overflow-hidden'
           >
             <div className='pb-12 pt-4 px-4'>

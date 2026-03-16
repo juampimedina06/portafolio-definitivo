@@ -51,13 +51,13 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] },
+    transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as any },
   },
 }
 
 const cardHover = {
   rest: { scale: 1, y: 0 },
-  hover: { scale: 1.02, y: -4, transition: { duration: 0.35, ease: 'easeOut' } },
+  hover: { scale: 1.02, y: -4, transition: { duration: 0.35, ease: 'easeOut' } as any },
 }
 
 const glowVariants = {
@@ -149,7 +149,7 @@ const Contact = () => {
                     className='absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-white/80 to-transparent'
                     initial={{ width: '0%' }}
                     animate={{ width: focusedField === 'name' ? '100%' : '0%' }}
-                    transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+                    transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as any }}
                   />
                 </div>
 
@@ -181,7 +181,7 @@ const Contact = () => {
                     className='absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-white/80 to-transparent'
                     initial={{ width: '0%' }}
                     animate={{ width: focusedField === 'email' ? '100%' : '0%' }}
-                    transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+                    transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as any }}
                   />
                 </div>
 
@@ -213,7 +213,7 @@ const Contact = () => {
                     className='absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-white/80 to-transparent'
                     initial={{ width: '0%' }}
                     animate={{ width: focusedField === 'message' ? '100%' : '0%' }}
-                    transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+                    transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as any }}
                   />
                 </div>
 

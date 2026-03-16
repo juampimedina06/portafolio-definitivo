@@ -107,7 +107,7 @@ const ProjectItem = ({ project, layout, index }: { project: ProjectData, layout:
       initial={{ opacity: 0, x: slideDirection }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+      transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as any }}
     >
       <div className={`flex flex-col ${layout === 'izq' ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 lg:gap-20`}>
         {/* Text Section */}
