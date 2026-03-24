@@ -129,13 +129,13 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as any }}
-      className=' group cursor-pointer transition-colors duration-300 hover:border-white/50'
+      className=' group cursor-pointer transition-colors duration-300'
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => setIsOpen(!isOpen)}
     >
-      <div className='flex justify-between items-center py-4 border-b-2 border-white'>
-        <h3 className='text-5xl md:text-[7rem] text-white transition-transform duration-500 group-hover:translate-x-4  '>
+      <div className={`flex justify-between items-center py-4 border-b-2 transition-colors duration-500 ${active ? 'border-[#22D3EE]' : 'border-[#E5E7EB]'}`}>
+        <h3 className={`text-3xl md:text-[5rem] transition-all duration-500 group-hover:translate-x-4 ${active ? 'text-[#E5E7EB]' : 'text-[#E5E7EB]'}`}>
           {title}
         </h3>
       </div>
@@ -167,7 +167,7 @@ const Skills = () => {
       <div className='flex items-center justify-center gap-4 mb-20 w-full max-w-7xl'>
         <span
           style={{ fontFamily: "'DM Mono', monospace" }}
-          className='text-white/25 text-xs tracking-[0.3em] uppercase'
+          className='text-[#E5E7EB]/40 text-xs tracking-[0.3em] uppercase  px-4 py-2 rounded-full'
         >
           Skills
         </span>

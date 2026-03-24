@@ -36,7 +36,7 @@ export default function HoverButton({ color, background, children, border, link,
           content: '';
           position: absolute;
           inset: 0;
-          background: #f5f5f5;
+          background: #E5E7EB;
           border-radius: inherit;
           transform: translateY(100%);
           transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
@@ -48,7 +48,7 @@ export default function HoverButton({ color, background, children, border, link,
         }
 
         .${btnClass}:hover {
-          border-color: #e0e0e0;
+          border-color: #E5E7EB;
         }
 
         /* Text wrapper: clips overflow so letters slide in/out */
@@ -77,14 +77,14 @@ export default function HoverButton({ color, background, children, border, link,
           top: 0;
           left: 0;
           width: 100%;
-          color: #0a0a0a;
+          color: #000;
           transform: translateY(-110%);
           transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .${btnClass}:hover .btn-text-top {
           transform: translateY(110%);
-          color: #0a0a0a;
+          color: #000;
         }
 
         .${btnClass}:hover .btn-text-bottom {

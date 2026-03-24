@@ -20,25 +20,25 @@ const About = () => {
           </div>
         </div>
 
-        <div className='hidden md:block w-px h-64 bg-gradient-to-b from-transparent via-white/25 to-transparent flex-shrink-0' />
-        <div className='md:hidden w-24 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent' />
+        <div className='hidden md:block w-px h-64 bg-gradient-to-b from-transparent via-[#E5E7EB]/25 to-transparent flex-shrink-0' />
+        <div className='md:hidden w-24 h-px bg-gradient-to-r from-transparent via-[#E5E7EB]/25 to-transparent' />
 
         <div className='flex-1 flex flex-col items-center md:items-start gap-4 text-center md:text-left'>
           <BlurText
             text='Desarrollador Full Stack con fuerte orientación al Front-End y enfoque en performance, arquitectura limpia y experiencia de usuario.'
             delay={50}
-            className='text-white text-xl sm:text-2xl lg:text-4xl leading-relaxed'
+            className='text-[#E5E7EB] text-xl sm:text-2xl lg:text-4xl font-bold leading-relaxed'
           />
           <BlurText
             text='Experiencia profesional en entorno productivo trabajando bajo metodología Scrum.
             Perfil analítico, disciplinado y con rápida capacidad de adaptación.'
             delay={50}
-            className='text-white/55 text-sm sm:text-base max-w-3xl leading-relaxed 
+            className='text-[#E5E7EB]/55 text-sm sm:text-base max-w-3xl leading-relaxed 
               md:text-base '
           />
           <div className='flex gap-4'>
-            <HoverButton color='white' background='#000' border='white' link='#contacto'>Contactame</HoverButton>
-            <HoverButton color='black' background='#fff' border='white' link='/CV_JuanPabloMedina_FullStack.docx' download>Descargar CV</HoverButton>
+            <HoverButton color='#E5E7EB' background='#000' border='#E5E7EB' link='#contacto'>Contactame</HoverButton>
+            <HoverButton color='black' background='#E5E7EB' border='#E5E7EB' link='/CV_JuanPabloMedina_FullStack.docx' download>Descargar CV</HoverButton>
           </div>
 
         </div>

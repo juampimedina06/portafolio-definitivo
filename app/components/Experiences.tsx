@@ -41,6 +41,8 @@ const experiences: Experience[] = [
 const ExperienceCard = ({ exp, index }: { exp: Experience; index: number }) => {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
+  const [expandedOne, setExpandedOne] = useState(false)
+  const [expandedTwo, setExpandedTwo] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -67,12 +69,12 @@ const ExperienceCard = ({ exp, index }: { exp: Experience; index: number }) => {
           transform: visible ? 'translateY(0)' : 'translateY(28px)',
           transition: `opacity 0.6s ease ${index * 0.15}s, transform 0.6s ease ${index * 0.15}s`,
         }}
-        className='group relative border-l-6 border-white p-7 md:p-9'
+        className='group relative border-l-6 border-[#E5E7EB] p-7 md:p-9'
       >
         {/* número de tarjeta */}
         <span
 
-          className='absolute top-7 right-7 text-white/15 text-xs tracking-widest select-none'
+          className='absolute top-7 right-7 text-[#E5E7EB]/20 text-xs tracking-widest select-none'
         >
           0{index + 1}
         </span>
@@ -81,15 +83,15 @@ const ExperienceCard = ({ exp, index }: { exp: Experience; index: number }) => {
         <div className='flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-5'>
           <div>
             <h3
-              className='text-white text-xl md:text-5xl tracking-tight leading-snug'
+              className='text-[#E5E7EB] text-xl md:text-5xl tracking-tight leading-snug'
             >
               {exp.role}
             </h3>
-            <p className='text-white/40 text-sm mt-1 tracking-wide'>{exp.company} · Remoto</p>
+            <p className='text-[#E5E7EB]/40 text-sm mt-1 tracking-wide'>{exp.company} · Remoto</p>
           </div>
           <span
             style={{ fontFamily: "'DM Mono', monospace" }}
-            className='self-start sm:self-auto text-[11px] tracking-widest text-white/30 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full whitespace-nowrap'
+            className='self-start sm:self-auto text-[11px] tracking-widest text-[#22D3EE] bg-[#22D3EE]/5 border border-[#22D3EE]/20 px-3 py-1.5 rounded-full whitespace-nowrap'
           >
             {exp.period}
           </span>
@@ -99,24 +101,64 @@ const ExperienceCard = ({ exp, index }: { exp: Experience; index: number }) => {
         <div className='w-full h-px bg-white/8 mb-5' />
 
         {/* descripción */}
-        <p className='text-white/55 text-sm md:text-base leading-relaxed mb-6'>
-          {exp.description}{exp.linkProyecto && (
-            <a href={exp.linkProyecto} target='_blank' rel='noopener noreferrer' className='text-white text-sm md:text-base leading-relaxed mb-6 transition-colors duration-200 p-2 pl-0 flex items-center gap-2'>
-              Ver Proyecto
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="rgba(255,255,255,1)"><path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L18.9999 6.413L11.2071 14.2071L9.79289 12.7929L17.5849 5H13V3H21Z"></path></svg>
-            </a>
-          )}
-        </p>
-
-        {exp.descriptionDos && (
-          <p className='text-white/55 text-sm md:text-base leading-relaxed mb-6'>
-            {exp.descriptionDos}{exp.linkProyectoDos && (
-              <a href={exp.linkProyectoDos} target='_blank' rel='noopener noreferrer' className='text-white text-sm md:text-base leading-relaxed mb-6 transition-colors duration-200 p-2 pl-0 flex items-center gap-2'>
+        <div className='mb-6'>
+          <p
+            className='text-[#E5E7EB]/55 text-sm md:text-base leading-relaxed'
+            style={{
+              display: '-webkit-box',
+              WebkitLineClamp: expandedOne ? 'unset' : 4,
+              WebkitBoxOrient: 'vertical',
+              overflow: expandedOne ? 'visible' : 'hidden',
+            }}
+          >
+            {exp.description}
+          </p>
+          <div className='flex items-center gap-4 mt-2 flex-wrap'>
+            <button
+              onClick={() => setExpandedOne((p: boolean) => !p)}
+              className='text-[#E5E7EB] text-xs tracking-widest uppercase hover:text-[#22D3EE] transition-colors duration-200'
+              style={{ fontFamily: "'DM Mono', monospace" }}
+            >
+              {expandedOne ? 'Leer menos' : 'Leer más'}
+            </button>
+            {exp.linkProyecto && (
+              <a href={exp.linkProyecto} target='_blank' rel='noopener noreferrer' className=' text-[#22D3EE] text-sm md:text-base transition-colors duration-200 flex items-center gap-2'>
                 Ver Proyecto
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="rgba(255,255,255,1)"><path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L18.9999 6.413L11.2071 14.2071L9.79289 12.7929L17.5849 5H13V3H21Z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="rgba(34, 211, 238, 1)"><path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L18.9999 6.413L11.2071 14.2071L9.79289 12.7929L17.5849 5H13V3H21Z"></path></svg>
               </a>
             )}
-          </p>
+          </div>
+        </div>
+
+        {exp.descriptionDos && (
+          <div className='mb-6'>
+            <p
+              className='text-[#E5E7EB]/55 text-sm md:text-base leading-relaxed'
+              style={{
+                display: '-webkit-box',
+                WebkitLineClamp: expandedTwo ? 'unset' : 3,
+                WebkitBoxOrient: 'vertical',
+                overflow: expandedTwo ? 'visible' : 'hidden',
+              }}
+            >
+              {exp.descriptionDos}
+            </p>
+            <div className='flex items-center gap-4 mt-2 flex-wrap'>
+              <button
+                onClick={() => setExpandedTwo((p: boolean) => !p)}
+                className='text-[#E5E7EB]   text-xs tracking-widest uppercase hover:text-[#22D3EE] transition-colors duration-200'
+                style={{ fontFamily: "'DM Mono', monospace" }}
+              >
+                {expandedTwo ? 'Leer menos' : 'Leer más'}
+              </button>
+              {exp.linkProyectoDos && (
+                <a href={exp.linkProyectoDos} target='_blank' rel='noopener noreferrer' className='text-[#22D3EE] text-sm md:text-base transition-colors duration-200 flex items-center gap-2'>
+                  Ver Proyecto
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="rgba(34, 211, 238, 1)"><path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L18.9999 6.413L11.2071 14.2071L9.79289 12.7929L17.5849 5H13V3H21Z"></path></svg>
+                </a>
+              )}
+            </div>
+          </div>
         )}
 
         {/* tech pills */}
@@ -125,7 +167,7 @@ const ExperienceCard = ({ exp, index }: { exp: Experience; index: number }) => {
             <span
               key={t}
               style={{ fontFamily: "'DM Mono', monospace" }}
-              className='text-[11px] text-white/40 border border-white/10 rounded-full px-3 py-1 tracking-wider hover:text-white/70 hover:border-white/25 transition-colors duration-200'
+              className='text-[11px] text-[#E5E7EB]/40 border border-[#E5E7EB]/10 rounded-full px-3 py-1 tracking-wider hover:text-[#22D3EE] hover:border-[#22D3EE]/40 transition-colors duration-200'
             >
               {t}
             </span>
@@ -146,7 +188,7 @@ const ExperienceSection = () => {
         <div className='flex items-center justify-center gap-4 mb-12'>
           <span
             style={{ fontFamily: "'DM Mono', monospace" }}
-            className='text-white/25 text-xs tracking-[0.3em] uppercase'
+            className='text-[#E5E7EB]/40 text-xs tracking-[0.3em] uppercase px-4 py-2 rounded-full'
           >
             Experiencia
           </span>

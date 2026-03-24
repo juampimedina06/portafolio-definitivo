@@ -112,29 +112,29 @@ const ProjectItem = ({ project, layout, index }: { project: ProjectData, layout:
       <div className={`flex flex-col ${layout === 'izq' ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 lg:gap-20`}>
         {/* Text Section */}
         <div className='flex-1 flex flex-col items-start gap-6'>
-          <div className='bg-white/10 border border-white/10 text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider'>
+          <div className='bg-[#22D3EE]/10 border border-[#22D3EE]/20 text-[#22D3EE] text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider'>
             {project.tag}
           </div>
-          <h3 className='text-4xl md:text-5xl lg:text-5xl  text-white leading-tight'>
+          <h3 className='text-4xl md:text-5xl lg:text-5xl text-[#E5E7EB] font-bold leading-tight'>
             {project.title}
           </h3>
-          <p className='text-white/55 text-sm md:text-base leading-relaxed mb-6'>
+          <p className='text-[#E5E7EB]/55 text-sm md:text-base leading-relaxed mb-6'>
             {project.description}
           </p>
           <div className='flex flex-wrap items-center gap-4 mt-2'>
             <HoverButton
               link={project.linkPrimaryButton || '#'}
               color="#000"
-              background="#fff"
-              border="#fff"
+              background="#E5E7EB"
+              border="#E5E7EB"
             >
               {project.primaryButtonText} <ArrowRight className="w-4 h-4 ml-2 inline-block" />
             </HoverButton>
             <HoverButton
               link={project.linkSecondaryButtonText || '#'}
-              color="#fff"
+              color="#E5E7EB"
               background="transparent"
-              border="rgba(255, 255, 255, 0.2)"
+              border="#E5E7EB"
             >
               {project.secondaryButtonText} <ArrowUpRight className="w-4 h-4 ml-2 inline-block" />
             </HoverButton>
@@ -147,7 +147,7 @@ const ProjectItem = ({ project, layout, index }: { project: ProjectData, layout:
               if (!IconComponent) return null
               return (
                 <div key={i} title={tech} className="cursor-pointer">
-                  <IconComponent className="w-5 h-5 hover:text-white transition-colors" />
+                  <IconComponent className="w-5 h-5 hover:text-[#22D3EE] transition-colors" />
                 </div>
               )
             })}
@@ -155,7 +155,7 @@ const ProjectItem = ({ project, layout, index }: { project: ProjectData, layout:
         </div>
         {/* Video Section */}
         <div className='flex-1 w-full'>
-          <div className='rounded-2xl overflow-hidden border border-white/10 bg-white/5 relative group shadow-2xl shadow-white/5'>
+          <div className='rounded-2xl overflow-hidden border border-[#E5E7EB]/10 bg-[#E5E7EB]/5 relative group shadow-2xl shadow-[#22D3EE]/5'>
             <div className='absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10 pointer-events-none'></div>
             <video
               ref={videoRef}
@@ -178,7 +178,7 @@ const Portafolio = () => {
       <div className='flex items-center justify-center gap-4 mb-20 w-full max-w-7xl'>
         <span
           style={{ fontFamily: "'DM Mono', monospace" }}
-          className='text-white/25 text-xs tracking-[0.3em] uppercase'
+          className='text-[#E5E7EB]/40 text-xs tracking-[0.3em] uppercase  px-4 py-2 rounded-full'
         >
           Portafolio
         </span>

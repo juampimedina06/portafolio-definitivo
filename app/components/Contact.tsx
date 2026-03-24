@@ -97,7 +97,7 @@ const Contact = () => {
       >
         <span
           style={{ fontFamily: "'DM Mono', monospace" }}
-          className='text-white/25 text-xs tracking-[0.3em] uppercase'
+          className='text-[#E5E7EB]/40 text-xs tracking-[0.3em] uppercase  px-4 py-2 rounded-full'
         >
           Contacto
         </span>
@@ -140,13 +140,13 @@ const Contact = () => {
                     onFocus={() => setFocusedField('name')}
                     onBlur={() => setFocusedField(null)}
                     required
-                    className='w-full bg-transparent border-b border-white/10 text-white text-lg py-3 
-                      outline-none focus:border-white/40 transition-colors duration-500
-                      placeholder:text-white/15'
+                    className='w-full bg-transparent border-b border-[#E5E7EB]/10 text-[#E5E7EB] text-lg py-3 
+                      outline-none focus:border-[#22D3EE]/40 transition-colors duration-500
+                      placeholder:text-[#E5E7EB]/15'
                     placeholder='Tu nombre'
                   />
                   <motion.div
-                    className='absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-white/80 to-transparent'
+                    className='absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-[#22D3EE] to-transparent'
                     initial={{ width: '0%' }}
                     animate={{ width: focusedField === 'name' ? '100%' : '0%' }}
                     transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as any }}
@@ -172,13 +172,13 @@ const Contact = () => {
                     onFocus={() => setFocusedField('email')}
                     onBlur={() => setFocusedField(null)}
                     required
-                    className='w-full bg-transparent border-b border-white/10 text-white text-lg py-3 
-                      outline-none focus:border-white/40 transition-colors duration-500
-                      placeholder:text-white/15'
+                    className='w-full bg-transparent border-b border-[#E5E7EB]/10 text-[#E5E7EB] text-lg py-3 
+                      outline-none focus:border-[#22D3EE]/40 transition-colors duration-500
+                      placeholder:text-[#E5E7EB]/15'
                     placeholder='tu@email.com'
                   />
                   <motion.div
-                    className='absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-white/80 to-transparent'
+                    className='absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-[#22D3EE] to-transparent'
                     initial={{ width: '0%' }}
                     animate={{ width: focusedField === 'email' ? '100%' : '0%' }}
                     transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as any }}
@@ -204,13 +204,13 @@ const Contact = () => {
                     onBlur={() => setFocusedField(null)}
                     required
                     rows={4}
-                    className='w-full bg-transparent border-b border-white/10 text-white text-lg py-3 
-                      outline-none focus:border-white/40 transition-colors duration-500 resize-none
-                      placeholder:text-white/15'
+                    className='w-full bg-transparent border-b border-[#E5E7EB]/10 text-[#E5E7EB] text-lg py-3 
+                      outline-none focus:border-[#22D3EE]/40 transition-colors duration-500 resize-none
+                      placeholder:text-[#E5E7EB]/15'
                     placeholder='Contame sobre tu proyecto...'
                   />
                   <motion.div
-                    className='absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-white/80 to-transparent'
+                    className='absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-[#22D3EE] to-transparent'
                     initial={{ width: '0%' }}
                     animate={{ width: focusedField === 'message' ? '100%' : '0%' }}
                     transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as any }}
@@ -220,13 +220,13 @@ const Contact = () => {
                 {/* Botón de enviar */}
                 <motion.button
                   type='submit'
-                  className='relative mt-4 w-full py-4 rounded-2xl text-black font-semibold text-sm uppercase tracking-widest overflow-hidden group/btn cursor-pointer'
+                  className='relative mt-4 w-full py-4 rounded-2xl text-black font-bold text-sm uppercase tracking-widest overflow-hidden group/btn cursor-pointer'
                   whileHover={{ scale: 1.01 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className='absolute inset-0 bg-white transition-all duration-500 group-hover/btn:bg-white/90' />
-                  <div className='absolute inset-0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-white via-gray-100 to-white' />
+                  <div className='absolute inset-0 bg-[#E5E7EB] transition-all duration-500 group-hover/btn:bg-[#E5E7EB]/90' />
+                  <div className='absolute inset-0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-[#E5E7EB] via-gray-100 to-[#E5E7EB]' />
                   <span className='relative z-10 flex items-center justify-center gap-2'>
                     Enviar Mensaje
                     <motion.svg
