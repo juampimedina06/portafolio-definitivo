@@ -38,7 +38,7 @@ const About = () => {
           />
           <div className='flex gap-4'>
             <HoverButton color='#E5E7EB' background='#000' border='#E5E7EB' link='#contacto'>Contactame</HoverButton>
-            <HoverButton color='black' background='#E5E7EB' border='#E5E7EB' link='/CV_JuanPabloMedina_FullStack.docx' download>Descargar CV</HoverButton>
+            <HoverButton color='black' background='#E5E7EB' border='#E5E7EB' link='/CV_JuanPabloMedina.docx' download>Descargar CV</HoverButton>
           </div>
 
         </div>
