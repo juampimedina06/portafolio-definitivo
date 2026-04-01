@@ -25,20 +25,19 @@ const About = () => {
 
         <div className='flex-1 flex flex-col items-center md:items-start gap-4 text-center md:text-left'>
           <BlurText
-            text='Desarrollador Full Stack con fuerte orientación al Front-End y enfoque en performance, arquitectura limpia y experiencia de usuario.'
+            text='Desarrollador Frontend con experiencia construyendo aplicaciones web B2B.'
             delay={50}
             className='text-[#E5E7EB] text-xl sm:text-2xl lg:text-4xl font-bold leading-relaxed'
           />
           <BlurText
-            text='Experiencia profesional en entorno productivo trabajando bajo metodología Scrum.
-            Perfil analítico, disciplinado y con rápida capacidad de adaptación.'
+            text='Desarrollador Full Stack con fuerte orientación al Front-End y enfoque en performance, arquitectura limpia y experiencia de usuario.'
             delay={50}
             className='text-[#E5E7EB]/55 text-sm sm:text-base max-w-3xl leading-relaxed 
               md:text-base '
           />
           <div className='flex gap-4'>
             <HoverButton color='#E5E7EB' background='#000' border='#E5E7EB' link='#contacto'>Contactame</HoverButton>
-            <HoverButton color='black' background='#E5E7EB' border='#E5E7EB' link='/CV_JuanPabloMedina.docx' download>Descargar CV</HoverButton>
+            <HoverButton color='black' background='#E5E7EB' border='#E5E7EB' link='/CV_JuanPablo_Medina.docx' pre-view='/CV_JuanPabloMedina.pdf'>Descargar CV</HoverButton>
           </div>
 
         </div>

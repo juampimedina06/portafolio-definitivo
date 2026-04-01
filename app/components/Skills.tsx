@@ -1,18 +1,18 @@
 'use client'
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 
-// Back
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import Card from './ui/Card'
+import BlurText from '../../components/ui/ReactBits/BlurText'
+
 import Express from '../../components/ui/LenguajesSVG/Back/Express'
 import NodeJS from '../../components/ui/LenguajesSVG/Back/NodeJS'
 import Supabase from '../../components/ui/LenguajesSVG/Back/Supabase'
 
-// BaseDeDatos
 import MySQL from '../../components/ui/LenguajesSVG/BaseDeDatos/MySQL'
 import PostgreSQL from '../../components/ui/LenguajesSVG/BaseDeDatos/PostgreSQL'
 import SQLServer from '../../components/ui/LenguajesSVG/BaseDeDatos/SQLserver'
 
-// Front
 import Angular from '../../components/ui/LenguajesSVG/Front/Angular'
 import Css from '../../components/ui/LenguajesSVG/Front/Css'
 import Html from '../../components/ui/LenguajesSVG/Front/Html'
@@ -20,165 +20,167 @@ import Javascript from '../../components/ui/LenguajesSVG/Front/Javascript'
 import ReactIcon from '../../components/ui/LenguajesSVG/Front/React'
 import Tailwind from '../../components/ui/LenguajesSVG/Front/Talwind'
 import Typescript from '../../components/ui/LenguajesSVG/Front/Typescript'
+import NextJS from '../../components/ui/LenguajesSVG/Front/NextJS'
+import Astro from '../../components/ui/LenguajesSVG/Front/Astro'
 
-// Herramientas
+import Zustand from '../../components/ui/LenguajesSVG/Herramientas/Zustand'
+import TanStackQuery from '../../components/ui/LenguajesSVG/Herramientas/TanStackQuery'
+import ChartJS from '../../components/ui/LenguajesSVG/Herramientas/ChartJS'
+
 import Figma from '../../components/ui/LenguajesSVG/Herramientas/Figma'
 import Git from '../../components/ui/LenguajesSVG/Herramientas/Git'
 import GitHub from '../../components/ui/LenguajesSVG/Herramientas/GitHub'
 import Postman from '../../components/ui/LenguajesSVG/Herramientas/Postaman'
 import Vercel from '../../components/ui/LenguajesSVG/Herramientas/Vercel'
 
-// IAtools
 import Antigravity from '../../components/ui/LenguajesSVG/IAtools/Antigrabity'
 import Claude from '../../components/ui/LenguajesSVG/IAtools/Claude'
 import OpenAI from '../../components/ui/LenguajesSVG/IAtools/OpenAI'
 
-interface AccordionItemProps {
-  title: string
-  children?: React.ReactNode
-}
+const skillCategories = [
+  {
+    title: 'Front',
+    color: '#22D3EE',
+    icons: [
+      { component: Html, name: 'HTML' },
+      { component: Css, name: 'CSS' },
+      { component: Javascript, name: 'JavaScript' },
+      { component: Typescript, name: 'TypeScript' },
+      { component: ReactIcon, name: 'React' },
+      { component: NextJS, name: 'Next.js' },
+      { component: Angular, name: 'Angular' },
+      { component: Astro, name: 'Astro' },
+      { component: Tailwind, name: 'Tailwind' }
+    ]
+  },
+  {
+    title: 'Back',
+    color: '#A78BFA',
+    icons: [
+      { component: NodeJS, name: 'Node.js' },
+      { component: Express, name: 'Express' },
+      { component: Supabase, name: 'Supabase' }
+    ]
+  },
+  {
+    title: 'Base de Datos',
+    color: '#34D399',
+    icons: [
+      { component: PostgreSQL, name: 'PostgreSQL' },
+      { component: MySQL, name: 'MySQL' },
+      { component: SQLServer, name: 'SQL Server' }
+    ]
+  },
+  {
+    title: 'Herramientas',
+    color: '#F472B6',
+    icons: [
+      { component: Git, name: 'Git' },
+      { component: GitHub, name: 'GitHub' },
+      { component: Vercel, name: 'Vercel' },
+      { component: Figma, name: 'Figma' },
+      { component: Postman, name: 'Postman' },
+      { component: Zustand, name: 'Zustand' },
+      { component: TanStackQuery, name: 'TanStack Query' },
+      { component: ChartJS, name: 'Chart.js' }
+    ]
+  },
+  {
+    title: 'IA Tools',
+    color: '#FBBF24',
+    icons: [
+      { component: OpenAI, name: 'OpenAI' },
+      { component: Claude, name: 'Claude' },
+      { component: Antigravity, name: 'Antigravity' }
+    ]
+  },
+]
 
-const AccordionItem = ({ title, children }: AccordionItemProps) => {
-  const [isHovered, setIsHovered] = useState(false)
+const AccordionItem = ({ category }: { category: typeof skillCategories[0] }) => {
   const [isOpen, setIsOpen] = useState(false)
 
-  // Determinar si debe estar expandido basado en hover (desktop) o click (mobile)
-  // En muchos casos, es mejor manejar el click explícitamente para mobile
-  const active = isHovered || isOpen
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  }
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5 }
-    }
-  }
-
-  const segunNombreSkills = ({ title }: { title: string }) => {
-    const iconWidth = 60
-    const renderIcons = (icons: React.ReactNode[]) => (
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className='flex gap-10 items-center flex-wrap'
-      >
-        {icons.map((icon, index) => (
-          <motion.div key={index} variants={itemVariants}>
-            {icon}
-          </motion.div>
-        ))}
-      </motion.div>
-    )
-
-    switch (title) {
-      case 'Front':
-        return renderIcons([
-          <Html width={iconWidth} />,
-          <Css width={iconWidth} />,
-          <Javascript width={iconWidth} />,
-          <Typescript width={iconWidth} />,
-          <ReactIcon width={iconWidth} />,
-          <Angular width={iconWidth} />,
-          <Tailwind width={iconWidth} />
-        ])
-      case 'Back':
-        return renderIcons([
-          <NodeJS width={iconWidth} />,
-          <Express width={iconWidth} />,
-          <Supabase width={iconWidth} />
-        ])
-      case 'Base de Datos':
-        return renderIcons([
-          <PostgreSQL width={iconWidth} />,
-          <MySQL width={iconWidth} />,
-          <SQLServer width={iconWidth} />
-        ])
-      case 'Herramientas':
-        return renderIcons([
-          <Git width={iconWidth} />,
-          <GitHub width={iconWidth} />,
-          <Figma width={iconWidth} />,
-          <Postman width={iconWidth} />,
-          <Vercel width={iconWidth} />
-        ])
-      case 'IA Tools':
-        return renderIcons([
-          <OpenAI width={iconWidth} />,
-          <Claude width={iconWidth} />,
-          <Antigravity width={iconWidth} />
-        ])
-    }
-  }
-
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as any }}
-      className=' group cursor-pointer transition-colors duration-300'
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={() => setIsOpen(!isOpen)}
-    >
-      <div className={`flex justify-between items-center py-4 border-b-2 transition-colors duration-500 ${active ? 'border-[#22D3EE]' : 'border-[#E5E7EB]'}`}>
-        <h3 className={`text-3xl md:text-[5rem] transition-all duration-500 group-hover:translate-x-4 ${active ? 'text-[#E5E7EB]' : 'text-[#E5E7EB]'}`}>
-          {title}
-        </h3>
-      </div>
+    <Card hoverable={true} accentColor='cyan' className='overflow-hidden'>
+      <button onClick={() => setIsOpen(!isOpen)} className='w-full flex justify-between items-center p-6 text-left group'>
+        <div className='flex items-center gap-4'>
+          <h3 className='text-xl md:text-3xl border-l-2 border-[#22D3EE] pl-4 text-white tracking-tight group-hover:text-white/80 transition-colors'>
+            {category.title}
+          </h3>
+        </div>
+        <motion.span
+          animate={{ rotate: isOpen ? 45 : 0 }}
+          transition={{ duration: 0.2 }}
+          className='text-[#22D3EE] text-2xl font-light'
+        >
+          +
+        </motion.span>
+      </button>
 
       <AnimatePresence>
-        {active && (
+        {isOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0, y: 10 }}
-            animate={{ height: 'auto', opacity: 1, y: 0 }}
-            exit={{ height: 0, opacity: 0, y: 10 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as any }}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
             className='overflow-hidden'
           >
-            <div className='pb-12 pt-4 px-4'>
-              {children || (
-                segunNombreSkills({ title })
-              )}
+            <div className='px-6 pb-6 border-t border-white/10'>
+              <div className='flex gap-8 items-center flex-wrap py-4'>
+                {category.icons.map((item) => (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.2 }}
+                    key={item.name}
+                    className='flex flex-col items-center gap-2 group/skill cursor-pointer'
+                  >
+                    <div
+                      className='transition-transform duration-300 group-hover/skill:scale-110'
+                      style={{ filter: 'grayscale(100%) brightness(0.7)' }}
+                    >
+                      <item.component width={40} />
+                    </div>
+                    <span
+                      style={{ fontFamily: "'DM Mono', monospace" }}
+                      className='text-white/30 text-[10px] tracking-wider group-hover/skill:text-white/60 transition-colors'
+                    >
+                      {item.name}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </Card>
   )
 }
 
 const Skills = () => {
   return (
-    <section id='skills' className='min-h-screen w-full bg-black flex justify-center items-center flex-col py-24 px-6'>
-      <div className='flex items-center justify-center gap-4 mb-20 w-full max-w-7xl'>
-        <span
-          style={{ fontFamily: "'DM Mono', monospace" }}
-          className='text-[#E5E7EB]/40 text-xs tracking-[0.3em] uppercase  px-4 py-2 rounded-full'
-        >
-          Skills
-        </span>
-      </div>
-      <div className='w-full max-w-7xl flex flex-col gap-12'>
+    <section id='skills' className='relative w-full py-24 px-6 md:px-16'>
+      <div className='max-w-7xl mx-auto'>
+        <div className='mb-16'>
+          <div className='flex items-center gap-4 mb-6'>
+            <div className='w-8 h-[1px] bg-[#22D3EE]' />
+            <span style={{ fontFamily: "'DM Mono', monospace" }} className='text-[#22D3EE] text-[10px] tracking-[0.3em] uppercase'>
+              Skills
+            </span>
+          </div>
+          <BlurText
+            text='Stack Técnico'
+            className='text-4xl md:text-5xl font-bold tracking-tight text-white'
+            delay={50}
+          />
+        </div>
 
-        <AccordionItem title="Front" />
-        <AccordionItem title="Back" />
-        <AccordionItem title="Base de Datos" />
-        <AccordionItem title="Herramientas" />
-        <AccordionItem title="IA Tools" />
+        <div className='flex flex-col gap-3'>
+          {skillCategories.map((category) => (
+            <AccordionItem key={category.title} category={category} />
+          ))}
+        </div>
       </div>
     </section>
   )

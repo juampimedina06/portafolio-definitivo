@@ -1,7 +1,12 @@
 'use client'
 
-import GlareHover from '@/components/ui/ReactBits/GlareHover/GlareHover'
-import React, { useRef, useEffect, useState } from 'react'
+import { useRef, useState } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Card from './ui/Card'
+import BlurText from '../../components/ui/ReactBits/BlurText'
+
+gsap.registerPlugin(ScrollTrigger)
 
 interface Experience {
   role: string
@@ -16,193 +21,105 @@ interface Experience {
 
 const experiences: Experience[] = [
   {
-    role: 'Programador Full Stack (Pasantia)',
-    company: 'Hyper Company - Miami Florida',
+    role: 'Desarrollador Front-End — Pasantía',
+    company: 'HypperCompany',
     period: 'Nov 2025 — Feb 2026',
-    description: 'Durante mi pasantía de tres meses como desarrollador Front-End participé en el desarrollo de dos proyectos web utilizando React, JavaScript, Tailwind CSS y Three.js. En el primer proyecto trabajé junto a un equipo de tres desarrolladores en la creación de la landing page institucional de la empresa. El desarrollo se guiaba a partir de prototipos definidos en Figma y mi responsabilidad principal fue implementar distintas secciones de la interfaz, construir componentes reutilizables y realizar ajustes en animaciones y elementos interactivos. También trabajé con componentes 3D integrados con Three.js y utilicé Context API para gestionar y mostrar información dinámica dentro de la aplicación.',
+    description: 'Desarrollé componentes reutilizables a partir de diseños en Figma, mejorando la consistencia visual del sitio. Implementé funcionalidades interactivas y animaciones, incluyendo integración de elementos 3D con Three.js. Gestioné estado global con Context API para contenido dinámico.',
     linkProyecto: 'https://hyperrealitycompany.com/',
-    descriptionDos: 'En el segundo proyecto colaboré directamente con el CTO en el desarrollo de una web para una productora de café. En este caso trabajé de forma más autónoma, recibiendo tareas específicas relacionadas con la implementación de nuevas secciones y la mejora de la experiencia visual del sitio. Gran parte del trabajo se centró en la integración y corrección de animaciones, así como en el ajuste de botones y componentes de la interfaz para garantizar su correcto funcionamiento y coherencia dentro del diseño general del proyecto. Este proyecto reforzó mi capacidad de resolver problemas de interfaz y mantener consistencia en componentes dentro de aplicaciones React.',
+    descriptionDos: 'Colaboré directamente con el CTO en la implementación de nuevas secciones del sitio web.',
     linkProyectoDos: 'https://green-book-web.netlify.app/',
-    tech: ['React', 'JavaScript', 'ThreeJS', 'Figma', 'TailwindCSS'],
+    tech: ['React', 'JavaScript', 'Tailwind CSS', 'Three.js', 'Figma', 'Context API'],
   },
   {
-    role: 'Proyecto Full Stack',
-    company: 'Technology with Purpose FoundationTechnology',
-    period: 'Febrero 2026 — Act.',
-    description:
-      'Actualmente participo en el desarrollo de Circular Local, un proyecto Full Stack realizado en equipo bajo metodología Scrum supervisado por um miembro de la empresa Santex, donde trabajamos cuatro desarrolladores organizando el trabajo mediante Jira. El proyecto cuenta con la guía de un mentor técnico que define requisitos funcionales y revisa el avance del equipo. La arquitectura utiliza MySQL para la base de datos, Node.js con Express para el backend y Angular con TypeScript y Tailwind CSS para el frontend. El objetivo de la plataforma es fomentar la economía circular a nivel local conectando cooperativas, recicladores y emprendedores sustentables para facilitar el intercambio de materiales, productos y servicios con impacto social y ambiental positivo.',
+    role: 'Desarrollador Full Stack — Proyecto Colaborativo',
+    company: 'Technology with Purpose Foundation',
+    period: 'Feb 2026 — Actualidad',
+    description: 'Desarrollo de frontend en Angular con arquitectura modular y consumo de APIs REST. Desarrollo de endpoints backend con Node.js y Express para gestión de datos.',
     linkProyecto: '',
-    descriptionDos: '',
+    descriptionDos: 'Trabajo en equipo bajo Scrum, organizando tareas con Jira y realizando code reviews.',
     linkProyectoDos: '',
-    tech: ['TypeScript', 'MySQL', 'Node.js', 'Express', 'Angular', 'Tailwind CSS', 'Jira', 'Lucid'],
+    tech: ['Angular', 'TypeScript', 'Node.js', 'Express', 'MySQL', 'Scrum', 'Jira'],
   },
 ]
 
-const ExperienceCard = ({ exp, index }: { exp: Experience; index: number }) => {
-  const ref = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(false)
-  const [expandedOne, setExpandedOne] = useState(false)
-  const [expandedTwo, setExpandedTwo] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
-      { threshold: 0.15 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-
-  return (
-    <GlareHover
-      glareColor="#ffffff"
-      glareOpacity={0.3}
-      glareAngle={-30}
-      glareSize={300}
-      transitionDuration={800}
-      playOnce={false}
-    >
-      <div
-        ref={ref}
-        style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? 'translateY(0)' : 'translateY(28px)',
-          transition: `opacity 0.6s ease ${index * 0.15}s, transform 0.6s ease ${index * 0.15}s`,
-        }}
-        className='group relative border-l-6 border-[#E5E7EB] p-7 md:p-9'
-      >
-        {/* número de tarjeta */}
-        <span
-
-          className='absolute top-7 right-7 text-[#E5E7EB]/20 text-xs tracking-widest select-none'
-        >
-          0{index + 1}
-        </span>
-
-        {/* encabezado */}
-        <div className='flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-5'>
-          <div>
-            <h3
-              className='text-[#E5E7EB] text-xl md:text-5xl tracking-tight leading-snug'
-            >
-              {exp.role}
-            </h3>
-            <p className='text-[#E5E7EB]/40 text-sm mt-1 tracking-wide'>{exp.company} · Remoto</p>
-          </div>
-          <span
-            style={{ fontFamily: "'DM Mono', monospace" }}
-            className='self-start sm:self-auto text-[11px] tracking-widest text-[#22D3EE] bg-[#22D3EE]/5 border border-[#22D3EE]/20 px-3 py-1.5 rounded-full whitespace-nowrap'
-          >
-            {exp.period}
-          </span>
-        </div>
-
-        {/* divisor */}
-        <div className='w-full h-px bg-white/8 mb-5' />
-
-        {/* descripción */}
-        <div className='mb-6'>
-          <p
-            className='text-[#E5E7EB]/55 text-sm md:text-base leading-relaxed'
-            style={{
-              display: '-webkit-box',
-              WebkitLineClamp: expandedOne ? 'unset' : 4,
-              WebkitBoxOrient: 'vertical',
-              overflow: expandedOne ? 'visible' : 'hidden',
-            }}
-          >
-            {exp.description}
-          </p>
-          <div className='flex items-center gap-4 mt-2 flex-wrap'>
-            <button
-              onClick={() => setExpandedOne((p: boolean) => !p)}
-              className='text-[#E5E7EB] text-xs tracking-widest uppercase hover:text-[#22D3EE] transition-colors duration-200'
-              style={{ fontFamily: "'DM Mono', monospace" }}
-            >
-              {expandedOne ? 'Leer menos' : 'Leer más'}
-            </button>
-            {exp.linkProyecto && (
-              <a href={exp.linkProyecto} target='_blank' rel='noopener noreferrer' className=' text-[#22D3EE] text-sm md:text-base transition-colors duration-200 flex items-center gap-2'>
-                Ver Proyecto
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="rgba(34, 211, 238, 1)"><path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L18.9999 6.413L11.2071 14.2071L9.79289 12.7929L17.5849 5H13V3H21Z"></path></svg>
-              </a>
-            )}
-          </div>
-        </div>
-
-        {exp.descriptionDos && (
-          <div className='mb-6'>
-            <p
-              className='text-[#E5E7EB]/55 text-sm md:text-base leading-relaxed'
-              style={{
-                display: '-webkit-box',
-                WebkitLineClamp: expandedTwo ? 'unset' : 3,
-                WebkitBoxOrient: 'vertical',
-                overflow: expandedTwo ? 'visible' : 'hidden',
-              }}
-            >
-              {exp.descriptionDos}
-            </p>
-            <div className='flex items-center gap-4 mt-2 flex-wrap'>
-              <button
-                onClick={() => setExpandedTwo((p: boolean) => !p)}
-                className='text-[#E5E7EB]   text-xs tracking-widest uppercase hover:text-[#22D3EE] transition-colors duration-200'
-                style={{ fontFamily: "'DM Mono', monospace" }}
-              >
-                {expandedTwo ? 'Leer menos' : 'Leer más'}
-              </button>
-              {exp.linkProyectoDos && (
-                <a href={exp.linkProyectoDos} target='_blank' rel='noopener noreferrer' className='text-[#22D3EE] text-sm md:text-base transition-colors duration-200 flex items-center gap-2'>
-                  Ver Proyecto
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="rgba(34, 211, 238, 1)"><path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L18.9999 6.413L11.2071 14.2071L9.79289 12.7929L17.5849 5H13V3H21Z"></path></svg>
-                </a>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* tech pills */}
-        <div className='flex flex-wrap gap-2'>
-          {exp.tech.map((t) => (
-            <span
-              key={t}
-              style={{ fontFamily: "'DM Mono', monospace" }}
-              className='text-[11px] text-[#E5E7EB]/40 border border-[#E5E7EB]/10 rounded-full px-3 py-1 tracking-wider hover:text-[#22D3EE] hover:border-[#22D3EE]/40 transition-colors duration-200'
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-      </div>
-    </GlareHover>
-
-  )
-}
-
 const ExperienceSection = () => {
   return (
-    <section id='experiencia' className='w-full min-h-screen flex flex-col justify-center py-20 px-6 md:px-16'>
-      <div className='max-w-7xl mx-auto w-full'>
-
-        {/* título sección */}
-        <div className='flex items-center justify-center gap-4 mb-12'>
-          <span
-            style={{ fontFamily: "'DM Mono', monospace" }}
-            className='text-[#E5E7EB]/40 text-xs tracking-[0.3em] uppercase px-4 py-2 rounded-full'
-          >
-            Experiencia
-          </span>
+    <section id='experiencia' className='relative w-full py-24 px-6 md:px-16'>
+      <div className='max-w-7xl mx-auto'>
+        <div className='mb-16'>
+          <div className='flex items-center gap-4 mb-6'>
+            <div className='w-8 h-[1px] bg-[#22D3EE]' />
+            <span style={{ fontFamily: "'DM Mono', monospace" }} className='text-[#22D3EE] text-[10px] tracking-[0.3em] uppercase'>
+              Experiencia
+            </span>
+          </div>
+          <BlurText
+            text='Trayectoria'
+            className='text-4xl md:text-5xl font-bold tracking-tight text-white'
+            delay={50}
+          />
         </div>
 
-        {/* tarjetas */}
-        <div className='flex flex-col gap-5'>
-          {experiences.map((exp, i) => (
-            <ExperienceCard key={i} exp={exp} index={i} />
+        <div className='space-y-6'>
+          {experiences.map((exp, index) => (
+            <div key={index}>
+              <Card delay={index * 0.1} accentColor='cyan'>
+                <div className='p-8 md:p-10'>
+                  <div className='flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6'>
+                    <div>
+                      <h3 className='text-2xl md:text-3xl font-medium text-white tracking-tight'>
+                        {exp.role}
+                      </h3>
+                      <p className='text-[#22D3EE] text-sm mt-1'>{exp.company}</p>
+                    </div>
+                    <span style={{ fontFamily: "'DM Mono', monospace" }} className='text-white/30 text-xs tracking-wider self-start'>
+                      {exp.period}
+                    </span>
+                  </div>
+
+                  <p className='text-white/50 text-sm leading-relaxed mb-4'>
+                    {exp.description}
+                  </p>
+
+                  {exp.linkProyecto && (
+                    <a href={exp.linkProyecto} target='_blank' rel='noopener noreferrer' className='text-[#22D3EE] text-sm hover:underline inline-flex items-center gap-2 mb-4'>
+                      Ver proyecto
+                      <svg className='w-3 h-3' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                        <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25' />
+                      </svg>
+                    </a>
+                  )}
+
+                  {exp.descriptionDos && (
+                    <>
+                      <p className='text-white/40 text-sm leading-relaxed mb-4'>
+                        {exp.descriptionDos}
+                      </p>
+                      {exp.linkProyectoDos && (
+                        <a href={exp.linkProyectoDos} target='_blank' rel='noopener noreferrer' className='text-[#22D3EE] text-sm hover:underline inline-flex items-center gap-2'>
+                          Ver proyecto
+                          <svg className='w-3 h-3' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25' />
+                          </svg>
+                        </a>
+                      )}
+                    </>
+                  )}
+
+                  <div className='flex flex-wrap gap-2 mt-6 pt-6 border-t border-white/10'>
+                    {exp.tech.map((t) => (
+                      <span key={t} style={{ fontFamily: "'DM Mono', monospace" }} className='text-[#22D3EE]/60 text-[10px] tracking-wider border border-[#22D3EE]/20 px-3 py-1 rounded-full'>
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Card>
+            </div>
           ))}
         </div>
-
       </div>
-    </section >
+    </section>
   )
 }
 

@@ -1,23 +1,11 @@
 'use client'
+
 import React, { useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import HoverButton from '@/components/ui/HoverButtom'
-import { ArrowRight, ArrowUpRight } from 'lucide-react'
-import {
-  SiJavascript,
-  SiTypescript,
-  SiReact,
-  SiAngular,
-  SiNodedotjs,
-  SiTailwindcss,
-  SiCss3,
-  SiSupabase,
-  SiExpress,
-  SiMysql,
-  SiNextdotjs
-} from 'react-icons/si'
+import { SiJavascript, SiTypescript, SiReact, SiAngular, SiNodedotjs, SiTailwindcss, SiCss3, SiSupabase, SiExpress, SiMysql, SiNextdotjs } from 'react-icons/si'
+import Card from './ui/Card'
+import BlurText from '../../components/ui/ReactBits/BlurText'
 
-// Mapa de iconos disponibles para asociar fácilmente desde el JSON
 const techIconsMap: Record<string, React.ElementType> = {
   javascript: SiJavascript,
   typescript: SiTypescript,
@@ -32,141 +20,88 @@ const techIconsMap: Record<string, React.ElementType> = {
   next: SiNextdotjs
 }
 
-// Array de datos de los proyectos (JSON)
 const projectsData = [
   {
     id: 1,
-    tag: 'Gestor de Cliente',
-    title: 'Proyecto para Agencia GuargSystems',
-    description: 'Portal de Gestión de Clientes y Seguimiento de Proyectos (En desarrollo) Plataforma Full-Stack B2B diseñada para optimizar la comunicación y transparencia entre la administración y los clientes. Implementación de un sistema de roles donde los administradores pueden gestionar y actualizar el estado de los proyectos, mientras que los clientes disponen de un portal privado para monitorear el progreso en tiempo real y aportar información estructurada, reduciendo los tiempos de feedback.',
-    primaryButtonText: 'Mas Informacion',
-    linkPrimaryButton: '',
-    secondaryButtonText: 'Ver Proyecto',
-    linkSecondaryButtonText: '',
+    tag: 'B2B Portal',
+    title: 'Customer Portal',
+    description: 'Sistema con autenticación y roles (admin/cliente). Dashboard para seguimiento de proyectos y comunicación cliente-empresa .',
+    link: 'https://github.com/juampimedina06/customer-portal',
     videoSrc: '/videos/gestorClientes.mp4',
-    technologies: ['react', 'typescript', 'next', 'tailwind', 'supabase'],
+    technologies: ['next', 'react', 'typescript', 'tailwind', 'supabase'],
   },
   {
     id: 2,
-    tag: 'Gestor y Catalogo de Productos',
-    title: 'Proyecto para El Pequeño HongKong - Bazar',
-    description: 'La plataforma ofrece una integracion de un carrito de compras persistente que culmina el proceso de compra directamente a través de WhatsApp. Además, incluye un panel de control protegido con autenticación para que el administrador pueda gestionar el stock y el CRUD de productos en tiempo real.',
-    primaryButtonText: 'Mas Informacion',
-    linkPrimaryButton: '',
-    secondaryButtonText: 'Ver Proyecto',
-    linkSecondaryButtonText: 'https://peque-hongkong.vercel.app/',
+    tag: 'E-commerce',
+    title: 'El Pequeño Hong Kong',
+    description: 'Sistema completo de gestión de productos con panel administrador. CRUD de productos y control de stock con autenticación.',
+    link: 'https://github.com/juampimedina06/el-pequeno-hong-kong',
     videoSrc: '/videos/elpequehongkong.mp4',
-    technologies: ['react', 'typescript', 'tailwind', 'css', 'supabase'],
+    technologies: ['react', 'typescript', 'tailwind', 'supabase'],
   },
   {
     id: 3,
-    tag: 'Gestion de Jugadores',
-    title: 'FIFA List (Full Stack)',
-    description: 'Plataforma de gestión deportiva con arquitectura desacoplada. Backend en Node.js/Express con MySQL/Sequelize y frontend modular en Angular 20. Incluye visualización de estadísticas, crud completo de jugadores, exportación a Excel y sistema de seguridad basado en tokens (JWT).',
-    primaryButtonText: 'Mas Informacion',
-    linkPrimaryButton: '',
-    secondaryButtonText: 'Ver Proyecto',
-    linkSecondaryButtonText: 'https://github.com/juampimedina06/gestionar-istado-de-jugadores-fifa',
+    tag: 'Gestión Deportiva',
+    title: 'Gestión Deportiva',
+    description: 'Sistema de gestión y análisis de jugadores con arquitectura cliente-servidor desacoplada. Implementación de autenticación con JWT.',
+    link: 'https://github.com/juampimedina06/fifa-list',
     videoSrc: '/videos/jugadoresFifa.mp4',
-    technologies: ['typescript', 'angular', 'css', 'nodejs', 'express', 'mysql'],
+    technologies: ['nodejs', 'express', 'mysql', 'angular'],
   }
 ]
 
-type ProjectData = typeof projectsData[0]
-
-const ProjectItem = ({ project, layout, index }: { project: ProjectData, layout: 'izq' | 'der', index: number }) => {
+const ProjectItem = ({ project, index }: { project: typeof projectsData[0], index: number }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
-    {/* IntersectionObserver obtiene alerta de cuando se esta visualizando el componente */ }
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          videoRef.current?.play().catch(e => console.log(e))
-        } else {
-          videoRef.current?.pause()
-        }
+        if (entry.isIntersecting) videoRef.current?.play().catch(() => { })
+        else videoRef.current?.pause()
       },
       { threshold: 0.5 }
     )
-
-    if (videoRef.current) {
-      observer.observe(videoRef.current)
-    }
-
-    return () => {
-      if (videoRef.current) observer.unobserve(videoRef.current)
-    }
+    if (videoRef.current) observer.observe(videoRef.current)
+    return () => observer.disconnect()
   }, [])
-
-  // Dirección de la animación: par (0,2,...) desde la derecha, impar (1,3,...) desde la izquierda
-  const slideDirection = index % 2 === 0 ? 200 : -200
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: slideDirection }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as any }}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className='grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center'
     >
-      <div className={`flex flex-col ${layout === 'izq' ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 lg:gap-20`}>
-        {/* Text Section */}
-        <div className='flex-1 flex flex-col items-start gap-6'>
-          <div className='bg-[#22D3EE]/10 border border-[#22D3EE]/20 text-[#22D3EE] text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider'>
-            {project.tag}
-          </div>
-          <h3 className='text-4xl md:text-5xl lg:text-5xl text-[#E5E7EB] font-bold leading-tight'>
-            {project.title}
-          </h3>
-          <p className='text-[#E5E7EB]/55 text-sm md:text-base leading-relaxed mb-6'>
-            {project.description}
-          </p>
-          <div className='flex flex-wrap items-center gap-4 mt-2'>
-            <HoverButton
-              link={project.linkPrimaryButton || '#'}
-              color="#000"
-              background="#E5E7EB"
-              border="#E5E7EB"
-            >
-              {project.primaryButtonText} <ArrowRight className="w-4 h-4 ml-2 inline-block" />
-            </HoverButton>
-            <HoverButton
-              link={project.linkSecondaryButtonText || '#'}
-              color="#E5E7EB"
-              background="transparent"
-              border="#E5E7EB"
-            >
-              {project.secondaryButtonText} <ArrowUpRight className="w-4 h-4 ml-2 inline-block" />
-            </HoverButton>
-          </div>
+      <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
+        <span style={{ fontFamily: "'DM Mono', monospace" }} className='text-[#22D3EE] text-[10px] tracking-[0.2em] uppercase'>
+          {project.tag}
+        </span>
+        <h3 className='text-2xl md:text-4xl font-medium text-white mt-2 mb-4 tracking-tight'>
+          {project.title}
+        </h3>
+        <p className='text-white/50 text-sm leading-relaxed mb-6'>
+          {project.description}
+        </p>
+        <a href={project.link} target='_blank' rel='noopener noreferrer' className='text-white/60 text-sm hover:text-[#22D3EE] transition-colors inline-flex items-center gap-2 group'>
+          Ver proyecto
+          <svg className='w-4 h-4 group-hover:translate-x-1 transition-transform' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25' />
+          </svg>
+        </a>
+        <div className='flex items-center gap-4 mt-6'>
+          {project.technologies?.map((tech, i) => {
+            const IconComponent = techIconsMap[tech.toLowerCase()]
+            if (!IconComponent) return null
+            return <IconComponent key={i} className='w-4 h-4 text-white/30 hover:text-[#22D3EE] transition-colors' />
+          })}
+        </div>
+      </div>
 
-          {/* Tecnologías mapeadas dinámicamente */}
-          <div className='flex items-center gap-6 text-gray-500 mt-6'>
-            {project.technologies?.map((tech, i) => {
-              const IconComponent = techIconsMap[tech.toLowerCase()]
-              if (!IconComponent) return null
-              return (
-                <div key={i} title={tech} className="cursor-pointer">
-                  <IconComponent className="w-5 h-5 hover:text-[#22D3EE] transition-colors" />
-                </div>
-              )
-            })}
-          </div>
-        </div>
-        {/* Video Section */}
-        <div className='flex-1 w-full'>
-          <div className='rounded-2xl overflow-hidden border border-[#E5E7EB]/10 bg-[#E5E7EB]/5 relative group shadow-2xl shadow-[#22D3EE]/5'>
-            <div className='absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10 pointer-events-none'></div>
-            <video
-              ref={videoRef}
-              src={project.videoSrc}
-              muted
-              loop
-              playsInline
-              className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500"
-            />
-          </div>
-        </div>
+      <div className={index % 2 === 1 ? 'lg:order-1' : ''}>
+        <Card accentColor='cyan' className='overflow-hidden group'>
+          <video ref={videoRef} src={project.videoSrc} muted loop playsInline className='w-full h-auto opacity-80 group-hover:opacity-100 transition-opacity' />
+        </Card>
       </div>
     </motion.div>
   )
@@ -174,25 +109,23 @@ const ProjectItem = ({ project, layout, index }: { project: ProjectData, layout:
 
 const Portafolio = () => {
   return (
-    <section id='proyectos' className='min-h-screen w-full bg-black flex justify-center items-center flex-col py-24 px-6'>
-      <div className='flex items-center justify-center gap-4 mb-20 w-full max-w-7xl'>
-        <span
-          style={{ fontFamily: "'DM Mono', monospace" }}
-          className='text-[#E5E7EB]/40 text-xs tracking-[0.3em] uppercase  px-4 py-2 rounded-full'
-        >
-          Portafolio
-        </span>
-      </div>
+    <section id='proyectos' className='relative w-full py-24 px-6 md:px-16'>
+      <div className='max-w-7xl mx-auto'>
+        <div className='mb-20'>
+          <div className='flex items-center gap-4 mb-6'>
+            <div className='w-8 h-[1px] bg-[#22D3EE]' />
+            <span style={{ fontFamily: "'DM Mono', monospace" }} className='text-[#22D3EE] text-[10px] tracking-[0.3em] uppercase'>
+              Portfolio
+            </span>
+          </div>
+          <BlurText text='Proyectos' className='text-4xl md:text-5xl font-bold tracking-tight text-white' delay={50} />
+        </div>
 
-      <div className='w-full max-w-7xl flex flex-col gap-32'>
-        {projectsData.map((project, index) => (
-          <ProjectItem
-            key={project.id}
-            project={project}
-            layout={index % 2 === 0 ? 'izq' : 'der'}
-            index={index}
-          />
-        ))}
+        <div className='flex flex-col gap-24'>
+          {projectsData.map((project, index) => (
+            <ProjectItem key={project.id} project={project} index={index} />
+          ))}
+        </div>
       </div>
     </section>
   )
