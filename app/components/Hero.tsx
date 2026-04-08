@@ -5,7 +5,7 @@ import React from 'react'
 
 const Hero = () => {
   return (
-    <section id='inicio' className='w-full h-[90vh] sm:flex gap-4 mt-4 overflow-hidden'>
+    <section id='inicio' className='w-full h-[90vh] sm:flex gap-4 mt-4 overflow-hidden bg-black'>
       <div className="relative w-full h-full ">
         <Iridescence mouseReact amplitude={0.1} speed={1} />
 
