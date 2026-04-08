@@ -5,7 +5,7 @@ import HoverButton from '@/components/ui/HoverButtom'
 
 const About = () => {
   return (
-    <section id='sobre-mi' className='relative w-full h-[90vh] flex items-center justify-center py-16 px-6 md:px-16 overflow-hidden'>2
+    <section id='sobre-mi' className='relative w-full h-[90vh] flex items-center justify-center py-16 px-6 md:px-16 overflow-hidden'>
 
       <div className='relative z-10 w-full max-w-7xl flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16'>
 
