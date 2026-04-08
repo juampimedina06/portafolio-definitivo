@@ -5,12 +5,12 @@ import React from 'react'
 
 const Hero = () => {
   return (
-    <section id='inicio' className='w-full h-[90vh] sm:flex gap-4 mt-4 overflow-hidden bg-black'>
+    <section id='inicio' className='w-full h-[90vh] sm:flex gap-4 mt-4 overflow-hidden '>
       <div className="relative w-full h-full ">
         <Iridescence mouseReact amplitude={0.1} speed={1} />
 
-        <svg className="bg-black svg-corner corner-content-box-one relative left-170 bottom-7 rotate-270 " width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path d="M30 0H0V30C0 13.431 13.431 0 30 0Z" fill="#000"></path></g><defs><clipPath id="clip0_310_2"><rect width="30" height="30" fill="white"></rect></clipPath></defs></svg>
-        <svg className="bg-black svg-corner corner-content-box-one relative bottom-78  rotate-270 " width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path d="M30 0H0V30C0 13.431 13.431 0 30 0Z" fill="#000"></path></g><defs><clipPath id="clip0_310_2"><rect width="30" height="30" fill="white"></rect></clipPath></defs></svg>
+        <svg className="svg-corner corner-content-box-one relative left-170 bottom-7 rotate-270 " width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path d="M30 0H0V30C0 13.431 13.431 0 30 0Z" fill="black"></path></g><defs><clipPath id="clip0_310_2"><rect width="30" height="30" fill="white"></rect></clipPath></defs></svg>
+        <svg className="svg-corner corner-content-box-one relative bottom-78  rotate-270 " width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path d="M30 0H0V30C0 13.431 13.431 0 30 0Z" fill="black"></path></g><defs><clipPath id="clip0_310_2"><rect width="30" height="30" fill="white"></rect></clipPath></defs></svg>
         <div className='absolute bottom-0 left-0 bg-black rounded-tr-[30px]'>
           <div className='h-50 w-full sm:w-170 flex items-center'>
             <h1 className='sm:text-5xl text-4xl text-[#E5E7EB] w-full flex-wrap'>Full Stack Developer orientado a performance y UX</h1>
