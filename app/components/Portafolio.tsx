@@ -1,57 +1,48 @@
 'use client'
 
 import React, { useRef, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { SiJavascript, SiTypescript, SiReact, SiAngular, SiNodedotjs, SiTailwindcss, SiCss3, SiSupabase, SiExpress, SiMysql, SiNextdotjs } from 'react-icons/si'
-import Card from './ui/Card'
-import BlurText from '../../components/ui/ReactBits/BlurText'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-const techIconsMap: Record<string, React.ElementType> = {
-  javascript: SiJavascript,
-  typescript: SiTypescript,
-  react: SiReact,
-  angular: SiAngular,
-  nodejs: SiNodedotjs,
-  tailwind: SiTailwindcss,
-  css: SiCss3,
-  supabase: SiSupabase,
-  express: SiExpress,
-  mysql: SiMysql,
-  next: SiNextdotjs
-}
+gsap.registerPlugin(ScrollTrigger)
 
 const projectsData = [
   {
     id: 1,
     tag: 'B2B Portal',
     title: 'Customer Portal',
-    description: 'Sistema con autenticación y roles (admin/cliente). Dashboard para seguimiento de proyectos y comunicación cliente-empresa .',
+    description: 'System with authentication and roles (admin/client). Dashboard for project tracking and client-company communication.',
     link: 'https://github.com/juampimedina06/customer-portal',
     videoSrc: '/videos/gestorClientes.mp4',
-    technologies: ['next', 'react', 'typescript', 'tailwind', 'supabase'],
+    technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Supabase'],
+    accent: '01'
   },
   {
     id: 2,
     tag: 'E-commerce',
     title: 'El Pequeño Hong Kong',
-    description: 'Sistema completo de gestión de productos con panel administrador. CRUD de productos y control de stock con autenticación.',
+    description: 'Complete product management system with admin panel. CRUD of products and stock control with authentication.',
     link: 'https://github.com/juampimedina06/el-pequeno-hong-kong',
     videoSrc: '/videos/elpequehongkong.mp4',
-    technologies: ['react', 'typescript', 'tailwind', 'supabase'],
+    technologies: ['React', 'TypeScript', 'Tailwind', 'Supabase'],
+    accent: '02'
   },
   {
     id: 3,
-    tag: 'Gestión Deportiva',
+    tag: 'Sports Management',
     title: 'Gestión Deportiva',
-    description: 'Sistema de gestión y análisis de jugadores con arquitectura cliente-servidor desacoplada. Implementación de autenticación con JWT.',
+    description: 'Player management and analysis system with decoupled client-server architecture. Authentication with JWT.',
     link: 'https://github.com/juampimedina06/fifa-list',
     videoSrc: '/videos/jugadoresFifa.mp4',
-    technologies: ['nodejs', 'express', 'mysql', 'angular'],
+    technologies: ['Node.js', 'Express', 'MySQL', 'Angular'],
+    accent: '03'
   }
 ]
 
-const ProjectItem = ({ project, index }: { project: typeof projectsData[0], index: number }) => {
+const ProjectSlide = ({ project, index }: { project: typeof projectsData[0], index: number }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const cardRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -59,73 +50,190 @@ const ProjectItem = ({ project, index }: { project: typeof projectsData[0], inde
         if (entry.isIntersecting) videoRef.current?.play().catch(() => { })
         else videoRef.current?.pause()
       },
-      { threshold: 0.5 }
+      { threshold: 0.3 }
     )
     if (videoRef.current) observer.observe(videoRef.current)
     return () => observer.disconnect()
   }, [])
 
+  // Tilt Effect
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { clientX, clientY, currentTarget } = e
+    const { left, top, width, height } = currentTarget.getBoundingClientRect()
+    const x = (clientX - left) / width - 0.5
+    const y = (clientY - top) / height - 0.5
+    
+    gsap.to(cardRef.current, {
+      rotateY: x * 10,
+      rotateX: -y * 10,
+      scale: 1.02,
+      duration: 0.5,
+      ease: 'power2.out'
+    })
+  }
+
+  const handleMouseLeave = () => {
+    gsap.to(cardRef.current, {
+      rotateY: 0,
+      rotateX: 0,
+      scale: 1,
+      duration: 0.5,
+      ease: 'power2.out'
+    })
+  }
+
+  // Magnetic Button Effect
+  const handleMagneticMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const { clientX, clientY, currentTarget } = e
+    const { left, top, width, height } = currentTarget.getBoundingClientRect()
+    const x = (clientX - (left + width / 2)) * 0.5
+    const y = (clientY - (top + height / 2)) * 0.5
+    
+    gsap.to(currentTarget, {
+      x: x,
+      y: y,
+      duration: 0.3,
+      ease: 'power2.out'
+    })
+  }
+
+  const handleMagneticLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    gsap.to(e.currentTarget, {
+      x: 0,
+      y: 0,
+      duration: 0.5,
+      ease: 'elastic.out(1, 0.3)'
+    })
+  }
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      className='grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center'
-    >
-      <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
-        <span style={{ fontFamily: "'DM Mono', monospace" }} className='text-[#22D3EE] text-[10px] tracking-[0.2em] uppercase'>
-          {project.tag}
-        </span>
-        <h3 className='text-2xl md:text-4xl font-medium text-white mt-2 mb-4 tracking-tight'>
-          {project.title}
-        </h3>
-        <p className='text-white/50 text-sm leading-relaxed mb-6'>
-          {project.description}
-        </p>
-        <a href={project.link} target='_blank' rel='noopener noreferrer' className='text-white/60 text-sm hover:text-[#22D3EE] transition-colors inline-flex items-center gap-2 group'>
-          Ver proyecto
-          <svg className='w-4 h-4 group-hover:translate-x-1 transition-transform' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25' />
-          </svg>
-        </a>
-        <div className='flex items-center gap-4 mt-6'>
-          {project.technologies?.map((tech, i) => {
-            const IconComponent = techIconsMap[tech.toLowerCase()]
-            if (!IconComponent) return null
-            return <IconComponent key={i} className='w-4 h-4 text-white/30 hover:text-[#22D3EE] transition-colors' />
-          })}
+    <div className='flex-shrink-0 w-screen h-screen flex items-center justify-center px-8 md:px-24 relative overflow-hidden'>
+      {/* Background Parallax Text */}
+      <span className='project-title-bg absolute left-0 bottom-0 text-[35vw] font-black uppercase leading-none opacity-[0.03] whitespace-nowrap pointer-events-none select-none z-0'>
+        {project.title}
+      </span>
+
+      <div className='grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative z-10 w-full max-w-7xl'>
+        {/* Project Number */}
+        <div className='hidden md:block col-span-1'>
+          <span className='text-8xl font-black opacity-10 tracking-tighter'>{project.accent}</span>
+        </div>
+
+        {/* Media Section */}
+        <div 
+          className='col-span-1 md:col-span-6 relative'
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          style={{ perspective: '1000px' }}
+        >
+          <div 
+            ref={cardRef}
+            className='border border-white/10 bg-white/5 overflow-hidden shadow-2xl origin-center'
+          >
+            <video 
+              ref={videoRef} 
+              src={project.videoSrc} 
+              muted 
+              loop 
+              playsInline 
+              className='w-full h-auto grayscale hover:grayscale-0 transition-all duration-1000' 
+            />
+          </div>
+        </div>
+
+        {/* Info Section */}
+        <div className='col-span-1 md:col-span-5 flex flex-col gap-6 md:pl-12 text-white'>
+          <div className='flex flex-col gap-2'>
+            <span className='small-caps text-sm font-bold tracking-swiss-wide opacity-50 text-white'>
+              {project.tag}
+            </span>
+            <h3 className='text-5xl md:text-7xl font-black uppercase tracking-swiss leading-[0.85] text-white'>
+              {project.title.split(' ').map((word, i) => (
+                <span key={i} className='block'>{word}</span>
+              ))}
+            </h3>
+          </div>
+          
+          <p className='text-xl opacity-70 leading-relaxed font-medium max-w-md'>
+            {project.description}
+          </p>
+          
+          <div className='flex flex-wrap gap-x-6 gap-y-3 mt-4 opacity-40'>
+            {project.technologies?.map((tech) => (
+              <span key={tech} className='text-[10px] font-bold small-caps tracking-widest text-white'>
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          <div className='mt-8'>
+            <a 
+              href={project.link} 
+              target='_blank' 
+              rel='noopener noreferrer' 
+              onMouseMove={handleMagneticMove}
+              onMouseLeave={handleMagneticLeave}
+              className='magnetic-btn inline-block text-sm font-black uppercase tracking-swiss bg-white text-black px-10 py-5 hover:bg-white/80 transition-all'
+            >
+              Ver Proyecto
+            </a>
+          </div>
         </div>
       </div>
-
-      <div className={index % 2 === 1 ? 'lg:order-1' : ''}>
-        <Card accentColor='cyan' className='overflow-hidden group'>
-          <video ref={videoRef} src={project.videoSrc} muted loop playsInline className='w-full h-auto opacity-80 group-hover:opacity-100 transition-opacity' />
-        </Card>
-      </div>
-    </motion.div>
+    </div>
   )
 }
 
 const Portafolio = () => {
-  return (
-    <section id='proyectos' className='relative w-full py-24 px-6 md:px-16'>
-      <div className='max-w-7xl mx-auto'>
-        <div className='mb-20'>
-          <div className='flex items-center gap-4 mb-6'>
-            <div className='w-8 h-[1px] bg-[#22D3EE]' />
-            <span style={{ fontFamily: "'DM Mono', monospace" }} className='text-[#22D3EE] text-[10px] tracking-[0.3em] uppercase'>
-              Portfolio
-            </span>
-          </div>
-          <BlurText text='Proyectos' className='text-4xl md:text-5xl font-bold tracking-tight text-white' delay={50} />
-        </div>
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const triggerRef = useRef<HTMLDivElement>(null)
 
-        <div className='flex flex-col gap-24'>
-          {projectsData.map((project, index) => (
-            <ProjectItem key={project.id} project={project} index={index} />
-          ))}
-        </div>
+  useGSAP(() => {
+    const pin = gsap.fromTo(sectionRef.current, {
+      x: 0
+    }, {
+      x: `-${100 * (projectsData.length - 1)}vw`,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: triggerRef.current,
+        pin: true,
+        scrub: 1,
+        start: 'top top',
+        end: () => `+=${sectionRef.current?.offsetWidth}`,
+        invalidateOnRefresh: true,
+      }
+    })
+
+    // Parallax background titles
+    gsap.utils.toArray('.project-title-bg').forEach((title: any, i) => {
+      gsap.to(title, {
+        x: -200,
+        scrollTrigger: {
+          trigger: triggerRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true
+        }
+      })
+    })
+
+    return () => pin.kill()
+  }, { scope: triggerRef })
+
+  return (
+    <section ref={triggerRef} id='proyectos' className='overflow-hidden bg-transparent text-white'>
+      <div className='sticky-title absolute top-24 left-8 md:left-24 z-20'>
+        <span className='small-caps text-xs tracking-swiss-wide opacity-30 text-white'>Trabajos Seleccionados — 2026</span>
+      </div>
+
+      <div 
+        ref={sectionRef} 
+        className='flex flex-nowrap h-screen'
+        style={{ width: `${projectsData.length * 100}vw` }}
+      >
+        {projectsData.map((project, index) => (
+          <ProjectSlide key={project.id} project={project} index={index} />
+        ))}
       </div>
     </section>
   )

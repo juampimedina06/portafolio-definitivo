@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
-import Container from "@/components/Container";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Portafolio de Juan Pablo Medina",
-  description: "Portafolio de Juan Pablo Medina, desarrollador web y diseñador gráfico en proceso. Aquí encontrarás mis proyectos, habilidades y experiencia en el mundo del desarrollo web y diseño gráfico.",
+  title: "Juan Pablo Medina | Portfolio",
+  description:
+    "Full Stack Developer following Swiss International Style principles.",
 };
 
 export default function RootLayout({
@@ -23,13 +23,20 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${plusJakartaSans.variable} antialiased font-sans`}
+        className={`${inter.variable} antialiased font-sans bg-black text-white relative`}
       >
-        <Container>
-          <NavBar />
-          {children}
-          <Footer />
-        </Container>
+        {/* Global Textured Background */}
+        <div className="fixed inset-0 z-[-1] opacity-40 pointer-events-none">
+          <img
+            src="/imagenes/imagen_fondo.png"
+            alt=""
+            className="w-full h-full object-cover grayscale brightness-[0.3]"
+          />
+        </div>
+
+        <NavBar />
+        <main className="relative z-0 min-h-screen">{children}</main>
+        <Footer />
       </body>
     </html>
   );

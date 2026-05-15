@@ -10,7 +10,7 @@ import Contact from "./components/Contact";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-between sm:items-start">
+    <main className="w-full">
       <Hero />
       <About />
       <Experiences />

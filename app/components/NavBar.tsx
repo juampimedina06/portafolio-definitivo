@@ -1,41 +1,67 @@
-import PillNav from '@/components/ui/ReactBits/PillNav/PillNav'
-import logo from '@/public/imagenes/traje_sinfondo.png'
+'use client'
+
+import React, { useRef } from 'react'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 
 const NavBar = () => {
+  const container = useRef<HTMLDivElement>(null)
+
+  useGSAP(() => {
+    // Ensuring visibility immediately in case GSAP fails or takes too long
+    gsap.set('.nav-reveal', { visibility: 'visible', opacity: 1 })
+    
+    gsap.from('.nav-reveal', {
+      y: -20,
+      opacity: 0,
+      stagger: 0.1,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.5
+    })
+    
+    gsap.from('.nav-line', {
+      scaleX: 0,
+      transformOrigin: 'center center',
+      duration: 1.5,
+      ease: 'expo.inOut',
+      delay: 0.2
+    })
+  }, { scope: container })
+
   return (
-    <header className=' fixed z-100 w-full bg-black h-4'>
-      <nav className='flex items-center '>
-        <div className='flex bg-black w-38 gap-2 rounded-rl-2 relative bg-black h-20 rounded-br-[30px] items-center'>
-          <svg className="svg-corner corner-content-box-one absolute left-38 bottom-8.5" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path d="M30 0H0V30C0 13.431 13.431 0 30 0Z" fill="#000"></path></g><defs><clipPath id="clip0_310_2"><rect width="30" height="30" fill="white"></rect></clipPath></defs></svg>
-          <svg className="svg-corner corner-content-box-one absolute left-0 top-20" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path d="M30 0H0V30C0 13.431 13.431 0 30 0Z" fill="#000000ff"></path></g><defs><clipPath id="clip0_310_2"><rect width="30" height="30" fill="white"></rect></clipPath></defs></svg>
-          <div className="w-10 h-10 border-2 rounded-b-full rounded-r-full border-[#E5E7EB] overflow-hidden">
-          </div>
-          <div className='flex flex-col'>
-            <span className='text-[#E5E7EB] text-xl'>Juan P.</span>
-            <span className='text-[#E5E7EB] text-xl'>Medina</span>
-          </div>
+    <header ref={container} className='fixed top-0 left-0 z-[999] w-full bg-black/40 backdrop-blur-md border-b border-white/10'>
+      <div className='grid grid-cols-1 md:grid-cols-12 h-20 items-center px-8 md:px-0 relative'>
+        {/* Name / Logo */}
+        <div className='col-span-1 md:col-span-2 md:col-start-2'>
+          <a href="#inicio" className='nav-reveal inline-block text-xl font-black uppercase tracking-swiss-wide text-white hover:text-white/70 transition-colors'>
+            J.P. MEDINA
+          </a>
         </div>
-        <div className=''>
-          <PillNav
-            items={[
-              { label: 'Home', href: '#inicio' },
-              { label: 'About', href: '#sobre-mi' },
-              { label: 'Experiences', href: '#experiencia' },
-              { label: 'Projects', href: '#proyectos' },
-              { label: 'Skills', href: '#skills' },
-              { label: 'Contact', href: '#contacto' },
-            ]}
-            activeHref="#inicio"
-            className="custom-nav"
-            ease="power2.easeOut"
-            baseColor="#a0a0a094"
-            pillColor="#000000ff"
-            hoveredPillTextColor="#ffffffff"
-            pillTextColor="#E5E7EB"
-            initialLoadAnimation={false}
-          />
-        </div>
-      </nav>
+
+        {/* Navigation Links */}
+        <nav className='hidden md:flex col-span-1 md:col-span-8 md:col-start-4 justify-end gap-16'>
+          {[
+            { label: 'Bio', href: '#sobre-mi' },
+            { label: 'Trabajos', href: '#experiencia' },
+            { label: 'Proyectos', href: '#proyectos' },
+            { label: 'Stack', href: '#skills' },
+            { label: 'Contacto', href: '#contacto' },
+          ].map((item) => (
+            <a 
+              key={item.label} 
+              href={item.href} 
+              className='nav-reveal text-[11px] font-black uppercase tracking-widest text-white/80 hover:text-white transition-all relative group'
+            >
+              {item.label}
+              <span className='absolute -bottom-1 left-0 w-0 h-px bg-white transition-all group-hover:w-full' />
+            </a>
+          ))}
+        </nav>
+
+        {/* Animated Bottom Line */}
+        <div className='nav-line absolute bottom-0 left-0 w-full h-px bg-white/20' />
+      </div>
     </header>
   )
 }

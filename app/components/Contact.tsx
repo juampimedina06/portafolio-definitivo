@@ -1,22 +1,35 @@
 'use client'
 
-import React, { useRef, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
-import { Mail, Linkedin, Github } from 'lucide-react'
-import Card from './ui/Card'
-import BlurText from '../../components/ui/ReactBits/BlurText'
+import React, { useState, useRef } from 'react'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const contactMethods = [
-  { label: 'Email', value: 'jpmedinagomez1@gmail.com', href: 'mailto:jpmedinagomez1@gmail.com', icon: Mail },
-  { label: 'LinkedIn', value: 'Juan Pablo Medina', href: 'https://www.linkedin.com/in/juan-pablo-medina-199b3b2b4/', icon: Linkedin },
-  { label: 'GitHub', value: 'juampimedina06', href: 'https://github.com/juampimedina06', icon: Github },
+  { label: 'Correo', value: 'jpmedinagomez1@gmail.com', href: 'mailto:jpmedinagomez1@gmail.com' },
+  { label: 'LinkedIn', value: 'Juan Pablo Medina', href: 'https://www.linkedin.com/in/juan-pablo-medina-199b3b2b4/' },
+  { label: 'GitHub', value: 'juampimedina06', href: 'https://github.com/juampimedina06' },
 ]
 
 const Contact = () => {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(sectionRef, { once: true, amount: 0.2 })
+  const container = useRef<HTMLDivElement>(null)
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
-  const [focusedField, setFocusedField] = useState<string | null>(null)
+
+  useGSAP(() => {
+    gsap.from('.contact-reveal', {
+      y: 50,
+      opacity: 0,
+      stagger: 0.1,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: container.current,
+        start: 'top 80%'
+      }
+    })
+  }, { scope: container })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
@@ -30,120 +43,111 @@ const Contact = () => {
   }
 
   return (
-    <section id='contacto' ref={sectionRef} className='relative w-full py-24 px-6 md:px-16'>
-      <div className='max-w-7xl mx-auto'>
-        <div className='mb-16'>
-          <div className='flex items-center gap-4 mb-6'>
-            <div className='w-8 h-[1px] bg-[#22D3EE]' />
-            <span style={{ fontFamily: "'DM Mono', monospace" }} className='text-[#22D3EE] text-[10px] tracking-[0.3em] uppercase'>
-              Contacto
-            </span>
+    <section 
+      ref={container}
+      id='contacto' 
+      className='col-span-1 md:col-span-12 grid grid-cols-1 md:grid-cols-12 py-64 px-8 md:px-0 bg-transparent text-white border-b border-white/10 relative overflow-hidden'
+    >
+      {/* Decorative Text */}
+      <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.02] select-none pointer-events-none'>
+        <span className='text-[35vw] font-black leading-none uppercase tracking-tighter'>HOLA</span>
+      </div>
+
+      {/* Label */}
+      <div className="col-span-1 md:col-span-2 md:col-start-2 mb-24 md:mb-0 relative z-10">
+        <span className="small-caps text-xs tracking-swiss-wide opacity-50 block">Contacto / Consulta</span>
+      </div>
+
+      <div className='col-span-1 md:col-span-8 md:col-start-4 grid grid-cols-1 md:grid-cols-8 gap-24 relative z-10'>
+        {/* Form */}
+        <div className='md:col-span-5 flex flex-col gap-16'>
+          <div className='flex flex-col gap-6'>
+            <h2 className='contact-reveal text-6xl md:text-8xl font-black uppercase tracking-tighter leading-[0.8]'>
+              Hagamos <br />
+              Algo <br />
+              <span className='text-outline-thin text-white opacity-30'>Épico.</span>
+            </h2>
           </div>
-          <BlurText
-            text='Hablemos'
-            className='text-4xl md:text-5xl font-bold tracking-tight text-white'
-            delay={50}
-          />
+
+          <form onSubmit={handleSubmit} className='flex flex-col gap-12'>
+            <div className='contact-reveal flex flex-col gap-2 group'>
+              <label className='small-caps text-[10px] font-bold tracking-widest opacity-30 group-focus-within:opacity-100 transition-opacity uppercase'>Tu Nombre</label>
+              <input
+                type='text'
+                name='name'
+                value={formData.name}
+                onChange={handleChange}
+                required
+                placeholder='Escribe aquí'
+                className='w-full bg-transparent border-b border-white/20 text-2xl font-black uppercase tracking-swiss py-4 outline-none focus:border-white transition-colors placeholder:opacity-20'
+              />
+            </div>
+            
+            <div className='contact-reveal flex flex-col gap-2 group'>
+              <label className='small-caps text-[10px] font-bold tracking-widest opacity-30 group-focus-within:opacity-100 transition-opacity uppercase'>Tu Email</label>
+              <input
+                type='email'
+                name='email'
+                value={formData.email}
+                onChange={handleChange}
+                required
+                placeholder='email@ejemplo.com'
+                className='w-full bg-transparent border-b border-white/20 text-2xl font-black uppercase tracking-swiss py-4 outline-none focus:border-white transition-colors placeholder:opacity-20'
+              />
+            </div>
+            
+            <div className='contact-reveal flex flex-col gap-2 group'>
+              <label className='small-caps text-[10px] font-bold tracking-widest opacity-30 group-focus-within:opacity-100 transition-opacity uppercase'>Mensaje</label>
+              <textarea
+                name='message'
+                value={formData.message}
+                onChange={handleChange}
+                required
+                rows={4}
+                placeholder='¿En qué puedo ayudarte?'
+                className='w-full bg-transparent border-b border-white/20 text-2xl font-black uppercase tracking-swiss py-4 outline-none focus:border-white transition-colors resize-none placeholder:opacity-20'
+              />
+            </div>
+            
+            <div className='contact-reveal mt-8'>
+              <button
+                type='submit'
+                className='group relative flex items-center gap-4 bg-white text-black px-12 py-6 font-black uppercase tracking-swiss hover:bg-black hover:text-white border border-white transition-all overflow-hidden'
+              >
+                <span className='relative z-10'>Enviar Mensaje</span>
+                <div className='h-2 w-2 rounded-full bg-black group-hover:bg-white group-hover:scale-[15] transition-transform duration-500 origin-center' />
+              </button>
+            </div>
+          </form>
         </div>
 
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-12'>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <Card accentColor='cyan'>
-              <form onSubmit={handleSubmit} className='p-8 flex flex-col gap-6'>
-                <div className='relative'>
-                  <input
-                    type='text'
-                    name='name'
-                    value={formData.name}
-                    onChange={handleChange}
-                    onFocus={() => setFocusedField('name')}
-                    onBlur={() => setFocusedField(null)}
-                    required
-                    className='w-full bg-transparent border-b text-white text-base py-3 outline-none transition-colors placeholder:text-white/20'
-                    style={{ borderColor: focusedField === 'name' ? '#22D3EE' : 'rgba(255,255,255,0.1)' }}
-                    placeholder='Nombre'
-                  />
-                </div>
-                <div className='relative'>
-                  <input
-                    type='email'
-                    name='email'
-                    value={formData.email}
-                    onChange={handleChange}
-                    onFocus={() => setFocusedField('email')}
-                    onBlur={() => setFocusedField(null)}
-                    required
-                    className='w-full bg-transparent border-b text-white text-base py-3 outline-none transition-colors placeholder:text-white/20'
-                    style={{ borderColor: focusedField === 'email' ? '#22D3EE' : 'rgba(255,255,255,0.1)' }}
-                    placeholder='Email'
-                  />
-                </div>
-                <div className='relative'>
-                  <textarea
-                    name='message'
-                    value={formData.message}
-                    onChange={handleChange}
-                    onFocus={() => setFocusedField('message')}
-                    onBlur={() => setFocusedField(null)}
-                    required
-                    rows={4}
-                    className='w-full bg-transparent border-b text-white text-base py-3 outline-none transition-colors resize-none placeholder:text-white/20'
-                    style={{ borderColor: focusedField === 'message' ? '#22D3EE' : 'rgba(255,255,255,0.1)' }}
-                    placeholder='Mensaje'
-                  />
-                </div>
-                <button
-                  type='submit'
-                  className='bg-[#fff] text-black rounded-lg font-medium text-sm py-4 mt-4 hover:bg-[#22D3EE]/90 transition-colors'
+        {/* Links & Details */}
+        <div className='md:col-span-3 flex flex-col justify-between py-8'>
+          <div className='flex flex-col gap-12'>
+            {contactMethods.map((method) => (
+              <div key={method.label} className='contact-reveal flex flex-col gap-2'>
+                <span className='small-caps text-[10px] font-bold tracking-widest opacity-30 uppercase'>{method.label}</span>
+                <a 
+                  href={method.href} 
+                  target='_blank' 
+                  rel='noopener noreferrer' 
+                  className='text-xl font-black uppercase tracking-swiss hover:opacity-50 transition-opacity border-b border-transparent hover:border-white/20 w-fit'
                 >
-                  Enviar mensaje
-                </button>
-              </form>
-            </Card>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className='flex flex-col gap-4'
-          >
-            {contactMethods.map((method) => {
-              const IconComponent = method.icon
-              return (
-                <a key={method.label} href={method.href} target='_blank' rel='noopener noreferrer'>
-                  <Card hoverable={true} accentColor='cyan'>
-                    <div className='p-6 flex items-center justify-between'>
-                      <div className='flex items-center gap-4'>
-                        <div className='w-10 h-10 rounded-xl flex items-center justify-center' style={{ backgroundColor: '#22D3EE15', border: '1px solid #22D3EE30' }}>
-                          <IconComponent size={20} className='text-[#22D3EE]' />
-                        </div>
-                        <div>
-                          <p className='text-white/30 text-[10px] tracking-widest uppercase mb-1'>{method.label}</p>
-                          <p className='text-white text-sm'>{method.value}</p>
-                        </div>
-                      </div>
-                      <svg className='w-5 h-5 text-white/20' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                        <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25' />
-                      </svg>
-                    </div>
-                  </Card>
+                  {method.value}
                 </a>
-              )
-            })}
+              </div>
+            ))}
+          </div>
 
-            <div className='flex items-center gap-3 mt-6'>
-              <span className='relative flex h-2 w-2'>
-                <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22D3EE] opacity-75' />
-                <span className='relative inline-flex rounded-full h-2 w-2 bg-[#22D3EE]' />
-              </span>
-              <span className='text-white/40 text-sm'>Disponible para trabajar</span>
+          <div className='contact-reveal flex flex-col gap-4 border-t border-white/10 pt-12 mt-12'>
+            <div className='flex items-center gap-3'>
+              <div className='h-3 w-3 rounded-full bg-green-500 animate-pulse' />
+              <span className='small-caps text-xs font-bold tracking-widest opacity-80 uppercase'>Disponible para Proyectos</span>
             </div>
-          </motion.div>
+            <p className='text-xs opacity-40 leading-tight'>
+              Actualmente aceptando nuevos desafíos para el Q2 2026.
+            </p>
+          </div>
         </div>
       </div>
     </section>

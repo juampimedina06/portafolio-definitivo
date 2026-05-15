@@ -1,131 +1,92 @@
 'use client'
 
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import Card from './ui/Card'
-import BlurText from '../../components/ui/ReactBits/BlurText'
+import { useState, useRef } from 'react'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 interface Certification {
   id: string
   title: string
   issuer: string
   date: string
-  credentialId?: string
-  category: 'frontend' | 'backend' | 'database' | 'soft-skills' | 'tools'
+  category: string
 }
 
 const allCertifications: Certification[] = [
-  { id: '1', title: 'XAcademy DevTechnology', issuer: 'Technology with Purpose Foundation', date: 'Nov 2025', category: 'frontend' },
-  { id: '2', title: 'Comandos DML: Manipulación de datos con MySQL', issuer: 'Alura Latam', date: 'Mar 2025', category: 'database' },
-  { id: '3', title: 'Programa Oracle Next Education F2 T7 Front-end', issuer: 'Alura Latam', date: 'Ene 2025', category: 'frontend' },
-  { id: '4', title: 'React: practicando React con JS', issuer: 'Alura Latam', date: 'Ene 2025', category: 'frontend' },
-  { id: '5', title: 'React: Function Components', issuer: 'Alura Latam', date: 'Ene 2025', category: 'frontend' },
-  { id: '6', title: 'React: Hooks en ReactJS', issuer: 'Alura Latam', date: 'Ene 2025', category: 'frontend' },
-  { id: '7', title: 'React: Styled Components', issuer: 'Alura Latam', date: 'Ene 2025', category: 'frontend' },
-  { id: '8', title: 'Nivelación TypeScript y React', issuer: 'Alura Latam', date: 'Ene 2025', category: 'frontend' },
-  { id: '9', title: 'React Router: Navegación en una SPA', issuer: 'Alura Latam', date: 'Dic 2024', category: 'frontend' },
-  { id: '10', title: 'React: como los componentes funcionan', issuer: 'Alura Latam', date: 'Dic 2024', category: 'frontend' },
-  { id: '11', title: 'React: desarrollando con JavaScript', issuer: 'Alura Latam', date: 'Nov 2024', category: 'frontend' },
-  { id: '12', title: 'Challenge AluraGeek', issuer: 'Alura Latam', date: 'Nov 2024', category: 'frontend' },
-  { id: '13', title: 'Formación Front End G7 - ONE', issuer: 'Alura Latam', date: 'Nov 2024', category: 'frontend' },
-  { id: '14', title: 'JavaScript para web: páginas dinámicas', issuer: 'Alura Latam', date: 'Oct 2024', category: 'frontend' },
-  { id: '15', title: 'JavaScript: manipulando elementos en el DOM', issuer: 'Alura Latam', date: 'Oct 2024', category: 'frontend' },
-  { id: '16', title: 'ChatGPT y JavaScript: Juego Pong', issuer: 'Alura Latam', date: 'Oct 2024', category: 'frontend' },
-  { id: '17', title: 'Challenge Portafolio', issuer: 'Alura Latam', date: 'Oct 2024', category: 'frontend' },
-  { id: '18', title: 'Desde cero: HTML y CSS para proyectos Web', issuer: 'Alura Latam', date: 'Oct 2024', category: 'frontend' },
-  { id: '19', title: 'CSS: Flexbox y layouts responsivos', issuer: 'Alura Latam', date: 'Sept 2024', category: 'frontend' },
-  { id: '20', title: 'Formación Emprendimiento G7 - ONE', issuer: 'Alura Latam', date: 'Ago 2024', category: 'soft-skills' },
-  { id: '21', title: 'Formación Principiante en Programación G7', issuer: 'Alura Latam', date: 'Jul 2024', category: 'frontend' },
-  { id: '22', title: 'Maestría en JavaScript', issuer: 'Udemy', date: 'Jun 2024', category: 'frontend' },
-  { id: '23', title: 'Git y GitHub: repositorio, commit y versiones', issuer: 'Alura Latam', date: 'Jun 2024', category: 'tools' },
-  { id: '24', title: 'Desafío Latam: Aplicación Full Stack', issuer: 'Desafío Latam', date: 'Jun 2024', category: 'backend' },
-  { id: '25', title: 'Latin Code Week', issuer: 'Junior Achievement Argentina', date: 'Sept 2023', category: 'soft-skills' },
-  { id: '26', title: 'Desafío de Innovación Stellantis', issuer: 'Stellantis', date: 'Oct 2023', category: 'soft-skills' },
-  { id: '27', title: 'Introducción a JavaScript', issuer: 'Desafío Latam', date: 'May 2024', category: 'frontend' },
-  { id: '28', title: 'Introducción a la Programación', issuer: 'EducacionIT', date: 'May 2024', category: 'frontend' },
+  { id: '1', title: 'XAcademy DevTechnology', issuer: 'Technology with Purpose', date: '2025', category: 'DEV' },
+  { id: '2', title: 'DML MySQL Manipulation', issuer: 'Alura Latam', date: '2025', category: 'DB' },
+  { id: '3', title: 'Oracle Next Education G7', issuer: 'Oracle & Alura', date: '2025', category: 'CORE' },
+  { id: '4', title: 'React Hooks & Function Components', issuer: 'Alura Latam', date: '2025', category: 'FRONT' },
+  { id: '5', title: 'React Router SPA', issuer: 'Alura Latam', date: '2024', category: 'FRONT' },
+  { id: '6', title: 'TypeScript & React Architecture', issuer: 'Alura Latam', date: '2025', category: 'ARCH' },
+  { id: '7', title: 'Git & GitHub Workflow', issuer: 'Alura Latam', date: '2024', category: 'TOOL' },
+  { id: '8', title: 'JavaScript DOM Manipulation', issuer: 'Alura Latam', date: '2024', category: 'CORE' },
 ]
 
-const highlightedIds = ['1', '3', '22', '13', '6', '23']
-
 const CertificationsSection = () => {
-  const [showAll, setShowAll] = useState(false)
+  const container = useRef<HTMLDivElement>(null)
 
-  const displayedCerts = showAll ? allCertifications : allCertifications.filter(c => highlightedIds.includes(c.id))
+  useGSAP(() => {
+    gsap.from('.cert-grid-item', {
+      y: 50,
+      opacity: 0,
+      stagger: 0.1,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: container.current,
+        start: 'top 80%'
+      }
+    })
+  }, { scope: container })
 
   return (
-    <section id='certificaciones' className='relative w-full py-24 px-6 md:px-16'>
-      <div className='max-w-7xl mx-auto'>
-        <div className='mb-16'>
-          <div className='flex items-center gap-4 mb-6'>
-            <div className='w-8 h-[1px] bg-[#22D3EE]' />
-            <span
-              style={{ fontFamily: "'DM Mono', monospace" }}
-              className='text-[#22D3EE] text-[10px] tracking-[0.3em] uppercase'
-            >
-              Certificaciones
-            </span>
-          </div>
+    <section 
+      ref={container}
+      id='certificaciones' 
+      className='col-span-1 md:col-span-12 grid grid-cols-1 md:grid-cols-12 py-64 px-8 md:px-0 bg-transparent text-white border-b border-white/10'
+    >
+      {/* Label */}
+      <div className="col-span-1 md:col-span-2 md:col-start-2 mb-24 md:mb-0">
+        <span className="small-caps text-xs tracking-swiss-wide opacity-50 block text-white">Premios / Certificados</span>
+      </div>
 
-          <div className='overflow-hidden'>
-            <BlurText
-              text='Credenciales'
-              className='text-4xl md:text-5xl font-bold tracking-tight text-white'
-              delay={50}
-            />
-          </div>
-        </div>
-
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
-          {displayedCerts.map((cert, index) => (
-            <motion.div
-              key={cert.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: (index % 6) * 0.05 }}
+      <div className='col-span-1 md:col-span-8 md:col-start-4'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 border-t border-l border-white/10'>
+          {allCertifications.map((cert) => (
+            <div 
+              key={cert.id} 
+              className='cert-grid-item aspect-square border-r border-b border-white/10 p-8 flex flex-col justify-between hover:bg-white hover:text-black transition-all group cursor-default'
             >
-              <a
-                href='https://www.linkedin.com/in/juan-pablo-medina-199b3b2b4/details/certifications/'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <Card delay={index * 0.05} accentColor='cyan'>
-                  <div className='p-5'>
-                    <div className='flex items-center justify-between mb-3'>
-                      <span className='text-[#22D3EE] text-[10px] tracking-wider'>
-                        {cert.date}
-                      </span>
-                      <svg className='w-4 h-4 text-white/30' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                        <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25' />
-                      </svg>
-                    </div>
-                    <h3 className='text-white text-sm font-medium mb-1 leading-tight group-hover:text-[#22D3EE] transition-colors'>
-                      {cert.title}
-                    </h3>
-                    <p className='text-white/40 text-xs'>
-                      {cert.issuer}
-                    </p>
-                  </div>
-                </Card>
-              </a>
-            </motion.div>
+              <div className='flex justify-between items-start'>
+                <span className='text-[10px] font-black tracking-widest opacity-30 group-hover:opacity-100'>{cert.category}</span>
+                <span className='text-[10px] font-black tracking-widest opacity-30 group-hover:opacity-100'>{cert.date}</span>
+              </div>
+              
+              <h3 className='text-xl font-black uppercase tracking-tighter leading-tight'>
+                {cert.title}
+              </h3>
+              
+              <div className='overflow-hidden'>
+                <span className='block text-[10px] font-bold small-caps tracking-widest opacity-0 group-hover:opacity-100 transition-all translate-y-full group-hover:translate-y-0'>
+                  Verificado por {cert.issuer}
+                </span>
+              </div>
+            </div>
           ))}
         </div>
 
-        <div className='flex justify-center mt-12'>
-          <button
-            onClick={() => setShowAll(!showAll)}
-            className='group flex items-center gap-3 border border-[#22D3EE]/30 text-[#22D3EE] text-sm px-8 py-4 hover:bg-[#22D3EE]/10 hover:border-[#22D3EE]/50 transition-all duration-300'
-          >
-            <span>{showAll ? 'Ver menos' : `Ver todas (${allCertifications.length})`}</span>
-            <svg
-              className={`w-4 h-4 transition-transform duration-300 ${showAll ? 'rotate-180' : ''}`}
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-            >
-              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
-            </svg>
-          </button>
+        <div className='mt-24 flex justify-between items-end'>
+          <div className='flex flex-col gap-2'>
+            <span className='small-caps text-[10px] font-bold tracking-widest opacity-30'>Archivo Completo</span>
+            <a href="#" className='text-2xl font-black uppercase tracking-swiss border-b-4 border-white'>
+              Ver Todo
+            </a>
+          </div>
+          <span className='text-8xl font-black opacity-[0.03] select-none text-white'>CERT</span>
         </div>
       </div>
     </section>

@@ -1,186 +1,102 @@
 'use client'
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import Card from './ui/Card'
-import BlurText from '../../components/ui/ReactBits/BlurText'
+import React, { useRef } from 'react'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import Express from '../../components/ui/LenguajesSVG/Back/Express'
-import NodeJS from '../../components/ui/LenguajesSVG/Back/NodeJS'
-import Supabase from '../../components/ui/LenguajesSVG/Back/Supabase'
-
-import MySQL from '../../components/ui/LenguajesSVG/BaseDeDatos/MySQL'
-import PostgreSQL from '../../components/ui/LenguajesSVG/BaseDeDatos/PostgreSQL'
-import SQLServer from '../../components/ui/LenguajesSVG/BaseDeDatos/SQLserver'
-
-import Angular from '../../components/ui/LenguajesSVG/Front/Angular'
-import Css from '../../components/ui/LenguajesSVG/Front/Css'
-import Html from '../../components/ui/LenguajesSVG/Front/Html'
-import Javascript from '../../components/ui/LenguajesSVG/Front/Javascript'
-import ReactIcon from '../../components/ui/LenguajesSVG/Front/React'
-import Tailwind from '../../components/ui/LenguajesSVG/Front/Talwind'
-import Typescript from '../../components/ui/LenguajesSVG/Front/Typescript'
-import NextJS from '../../components/ui/LenguajesSVG/Front/NextJS'
-import Astro from '../../components/ui/LenguajesSVG/Front/Astro'
-
-import Zustand from '../../components/ui/LenguajesSVG/Herramientas/Zustand'
-import TanStackQuery from '../../components/ui/LenguajesSVG/Herramientas/TanStackQuery'
-import ChartJS from '../../components/ui/LenguajesSVG/Herramientas/ChartJS'
-
-import Figma from '../../components/ui/LenguajesSVG/Herramientas/Figma'
-import Git from '../../components/ui/LenguajesSVG/Herramientas/Git'
-import GitHub from '../../components/ui/LenguajesSVG/Herramientas/GitHub'
-import Postman from '../../components/ui/LenguajesSVG/Herramientas/Postaman'
-import Vercel from '../../components/ui/LenguajesSVG/Herramientas/Vercel'
-
-import Antigravity from '../../components/ui/LenguajesSVG/IAtools/Antigrabity'
-import Claude from '../../components/ui/LenguajesSVG/IAtools/Claude'
-import OpenAI from '../../components/ui/LenguajesSVG/IAtools/OpenAI'
+gsap.registerPlugin(ScrollTrigger)
 
 const skillCategories = [
   {
-    title: 'Front',
-    color: '#22D3EE',
-    icons: [
-      { component: Html, name: 'HTML' },
-      { component: Css, name: 'CSS' },
-      { component: Javascript, name: 'JavaScript' },
-      { component: Typescript, name: 'TypeScript' },
-      { component: ReactIcon, name: 'React' },
-      { component: NextJS, name: 'Next.js' },
-      { component: Angular, name: 'Angular' },
-      { component: Astro, name: 'Astro' },
-      { component: Tailwind, name: 'Tailwind' }
-    ]
+    title: 'Engine / Frontend',
+    skills: ['React', 'Next.js', 'Angular', 'Astro', 'TypeScript', 'Tailwind', 'Three.js']
   },
   {
-    title: 'Back',
-    color: '#A78BFA',
-    icons: [
-      { component: NodeJS, name: 'Node.js' },
-      { component: Express, name: 'Express' },
-      { component: Supabase, name: 'Supabase' }
-    ]
+    title: 'Architecture / Backend',
+    skills: ['Node.js', 'Express', 'Supabase', 'PostgreSQL', 'MySQL']
   },
   {
-    title: 'Base de Datos',
-    color: '#34D399',
-    icons: [
-      { component: PostgreSQL, name: 'PostgreSQL' },
-      { component: MySQL, name: 'MySQL' },
-      { component: SQLServer, name: 'SQL Server' }
-    ]
-  },
-  {
-    title: 'Herramientas',
-    color: '#F472B6',
-    icons: [
-      { component: Git, name: 'Git' },
-      { component: GitHub, name: 'GitHub' },
-      { component: Vercel, name: 'Vercel' },
-      { component: Figma, name: 'Figma' },
-      { component: Postman, name: 'Postman' },
-      { component: Zustand, name: 'Zustand' },
-      { component: TanStackQuery, name: 'TanStack Query' },
-      { component: ChartJS, name: 'Chart.js' }
-    ]
-  },
-  {
-    title: 'IA Tools',
-    color: '#FBBF24',
-    icons: [
-      { component: OpenAI, name: 'OpenAI' },
-      { component: Claude, name: 'Claude' },
-      { component: Antigravity, name: 'Antigravity' }
-    ]
-  },
+    title: 'Workflow / Design',
+    skills: ['Git', 'Vercel', 'Figma', 'Zustand', 'React Query', 'Postman']
+  }
 ]
 
-const AccordionItem = ({ category }: { category: typeof skillCategories[0] }) => {
-  const [isOpen, setIsOpen] = useState(false)
+const Skills = () => {
+  const container = useRef<HTMLDivElement>(null)
+
+  useGSAP(() => {
+    gsap.from('.skill-block', {
+      y: 100,
+      opacity: 0,
+      stagger: 0.2,
+      duration: 1.5,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: container.current,
+        start: 'top 70%'
+      }
+    })
+
+    // Scrolling text animation (marquee style but subtle)
+    gsap.to('.skill-marquee', {
+      xPercent: -50,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: container.current,
+        scrub: 1,
+        start: 'top bottom',
+        end: 'bottom top'
+      }
+    })
+  }, { scope: container })
 
   return (
-    <Card hoverable={true} accentColor='cyan' className='overflow-hidden'>
-      <button onClick={() => setIsOpen(!isOpen)} className='w-full flex justify-between items-center p-6 text-left group'>
-        <div className='flex items-center gap-4'>
-          <h3 className='text-xl md:text-3xl border-l-2 border-[#22D3EE] pl-4 text-white tracking-tight group-hover:text-white/80 transition-colors'>
-            {category.title}
-          </h3>
-        </div>
-        <motion.span
-          animate={{ rotate: isOpen ? 45 : 0 }}
-          transition={{ duration: 0.2 }}
-          className='text-[#22D3EE] text-2xl font-light'
-        >
-          +
-        </motion.span>
-      </button>
+    <section 
+      ref={container}
+      id='skills' 
+      className='col-span-1 md:col-span-12 py-64 bg-transparent text-white overflow-hidden relative border-b border-white/10'
+    >
+      {/* Background Marquee Text */}
+      <div className='skill-marquee absolute top-1/2 left-0 -translate-y-1/2 whitespace-nowrap pointer-events-none select-none opacity-[0.05]'>
+        <span className='text-[40vw] font-black uppercase tracking-tighter'>CAPABILITIES CAPABILITIES CAPABILITIES</span>
+      </div>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className='overflow-hidden'
-          >
-            <div className='px-6 pb-6 border-t border-white/10'>
-              <div className='flex gap-8 items-center flex-wrap py-4'>
-                {category.icons.map((item) => (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.2 }}
-                    key={item.name}
-                    className='flex flex-col items-center gap-2 group/skill cursor-pointer'
-                  >
-                    <div
-                      className='transition-transform duration-300 group-hover/skill:scale-110'
-                      style={{ filter: 'grayscale(100%) brightness(0.7)' }}
-                    >
-                      <item.component width={40} />
-                    </div>
-                    <span
-                      style={{ fontFamily: "'DM Mono', monospace" }}
-                      className='text-white/30 text-[10px] tracking-wider group-hover/skill:text-white/60 transition-colors'
-                    >
-                      {item.name}
+      <div className='grid grid-cols-1 md:grid-cols-12 px-8 md:px-0 relative z-10'>
+        {/* Label */}
+        <div className="col-span-1 md:col-span-2 md:col-start-2 mb-24 md:mb-0">
+          <span className="small-caps text-xs tracking-swiss-wide opacity-50 block">Logic / Tools</span>
+        </div>
+
+        <div className='col-span-1 md:col-span-8 md:col-start-4 grid grid-cols-1 md:grid-cols-3 gap-24'>
+          {skillCategories.map((category) => (
+            <div key={category.title} className='skill-block flex flex-col gap-12'>
+              <div className='flex flex-col gap-2'>
+                <span className='text-[10px] font-bold opacity-30 small-caps tracking-widest'>Section</span>
+                <h3 className='text-2xl font-black uppercase tracking-swiss border-b border-white/10 pb-4'>
+                  {category.title}
+                </h3>
+              </div>
+              
+              <div className='flex flex-col gap-6'>
+                {category.skills.map((skill) => (
+                  <div key={skill} className='group flex items-center gap-4'>
+                    <div className='h-px w-0 bg-white group-hover:w-8 transition-all duration-500' />
+                    <span className='text-3xl md:text-5xl font-black uppercase tracking-tighter leading-none hover:text-outline-thin transition-all cursor-default'>
+                      {skill}
                     </span>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </Card>
-  )
-}
-
-const Skills = () => {
-  return (
-    <section id='skills' className='relative w-full py-24 px-6 md:px-16'>
-      <div className='max-w-7xl mx-auto'>
-        <div className='mb-16'>
-          <div className='flex items-center gap-4 mb-6'>
-            <div className='w-8 h-[1px] bg-[#22D3EE]' />
-            <span style={{ fontFamily: "'DM Mono', monospace" }} className='text-[#22D3EE] text-[10px] tracking-[0.3em] uppercase'>
-              Skills
-            </span>
-          </div>
-          <BlurText
-            text='Stack Técnico'
-            className='text-4xl md:text-5xl font-bold tracking-tight text-white'
-            delay={50}
-          />
-        </div>
-
-        <div className='flex flex-col gap-3'>
-          {skillCategories.map((category) => (
-            <AccordionItem key={category.title} category={category} />
           ))}
         </div>
+      </div>
+
+      {/* Decorative Corner Element */}
+      <div className='absolute bottom-12 right-12 flex flex-col items-end opacity-20'>
+        <span className='text-6xl font-black leading-none'>99%</span>
+        <span className='small-caps text-[10px] font-bold tracking-widest'>Efficiency Target</span>
       </div>
     </section>
   )
