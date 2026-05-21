@@ -1,50 +1,136 @@
-import React from 'react'
-import imagenJuanPabloMedina from '@/public/imagenes/traje.jpg'
-import BlurText from '@/components/ui/ReactBits/BlurText'
-import HoverButton from '@/components/ui/HoverButtom'
+"use client";
+
+import React, { useRef } from "react";
+import imagenJuanPabloMedina from "@/public/imagenes/traje_foto.jpg";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
+  const containerRef = useRef<HTMLElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
+  const textRefs = useRef<(HTMLElement | null)[]>([]);
+
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 70%",
+        },
+      });
+
+      tl.from(imageRef.current, {
+        clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
+        duration: 1.5,
+        ease: "power4.inOut",
+      }).from(
+        textRefs.current,
+        {
+          y: 40,
+          opacity: 0,
+          duration: 1,
+          stagger: 0.1,
+          ease: "power3.out",
+        },
+        "-=1",
+      );
+    },
+    { scope: containerRef },
+  );
+
   return (
-    <section id='sobre-mi' className='relative w-full h-[90vh] flex items-center justify-center py-16 px-6 md:px-16 overflow-hidden'>
-
-      <div className='relative z-10 w-full max-w-7xl flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16'>
-
-        <div className='flex-shrink-0 flex items-center justify-center'>
-          <div className='relative'>
-            <div className='absolute -inset-1 rounded-[28px] bg-gradient-to-br from-white/20 via-white/5 to-transparent' />
+    <section
+      ref={containerRef}
+      id="sobre-mi"
+      className="relative w-full py-24 md:py-32 px-4 md:px-12  mt-16"
+    >
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0">
+        {/* Left Column - Imposing Image */}
+        <div className="md:col-span-5 md:border-r border-white/20 px-4 md:px-12 flex flex-col justify-center">
+          <div className="w-full aspect-[3/4] overflow-hidden relative group">
             <img
+              ref={imageRef}
               src={imagenJuanPabloMedina.src}
-              alt='Juan Pablo Medina'
-              className='relative w-52 h-64 sm:w-60 sm:h-72 md:w-56 md:h-72 lg:w-64 lg:h-80 object-cover rounded-[24px] shadow-2xl'
+              alt="Juan Pablo Medina"
+              className="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700 ease-out"
+              style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
             />
           </div>
         </div>
 
-        <div className='hidden md:block w-px h-64 bg-gradient-to-b from-transparent via-[#E5E7EB]/25 to-transparent flex-shrink-0' />
-        <div className='md:hidden w-24 h-px bg-gradient-to-r from-transparent via-[#E5E7EB]/25 to-transparent' />
+        {/* Right Column - Editorial Typography */}
+        <div className="md:col-span-7 flex flex-col justify-center px-4 md:px-12 mt-8 md:mt-0">
+          <div>
+            <span
+              ref={(el) => {
+                textRefs.current[0] = el;
+              }}
+              className="text-white text-[10px] tracking-[0.3em] uppercase font-bold block mb-8"
+            >
+              [ 00 ] Perfil
+            </span>
+            <h2
+              ref={(el) => {
+                textRefs.current[1] = el;
+              }}
+              className="text-6xl md:text-7xl lg:text-[7vw] font-black uppercase tracking-tighter text-white leading-none mb-4"
+            >
+              Frontend
+              <br />
+              <span className="text-white/30 text-5xl md:text-6xl lg:text-[5vw] italic">
+                Engineer
+              </span>
+            </h2>
 
-        <div className='flex-1 flex flex-col items-center md:items-start gap-4 text-center md:text-left'>
-          <BlurText
-            text='Desarrollador Frontend con experiencia construyendo aplicaciones web B2B.'
-            delay={50}
-            className='text-[#E5E7EB] text-xl sm:text-2xl lg:text-4xl font-bold leading-relaxed'
-          />
-          <BlurText
-            text='Desarrollador Full Stack con fuerte orientación al Front-End y enfoque en performance, arquitectura limpia y experiencia de usuario.'
-            delay={50}
-            className='text-[#E5E7EB]/55 text-sm sm:text-base max-w-3xl leading-relaxed 
-              md:text-base '
-          />
-          <div className='flex gap-4'>
-            <HoverButton color='#E5E7EB' background='#000' border='#E5E7EB' link='#contacto'>Contactame</HoverButton>
-            <HoverButton color='black' background='#E5E7EB' border='#E5E7EB' link='/CV_JuanPablo_Medina.docx' pre-view='/CV_JuanPabloMedina.pdf'>Descargar CV</HoverButton>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 md:mt-24 border-t border-white/20 pt-8">
+              <div
+                ref={(el) => {
+                  textRefs.current[2] = el;
+                }}
+              >
+                <p className="text-white/80 font-mono text-xs uppercase tracking-widest leading-loose">
+                  Desarrollador Full Stack con fuerte orientación al Front-End.
+                  Enfoque en performance, arquitectura limpia y experiencia de
+                  usuario.
+                </p>
+              </div>
+              <div
+                ref={(el) => {
+                  textRefs.current[3] = el;
+                }}
+                className="flex flex-col justify-between"
+              >
+                <p className="text-white/50 text-sm leading-relaxed mb-8">
+                  Especializado en la creación de aplicaciones con sistemas multi-rol, autenticación, dashboards y CRMs.
+                  Experiencia en proyectos colaborativos bajo metodología Scrum con Jira, y en entornos remotos con equipos internacionales.
+                  Busco primer rol full-time donde pueda aportar desde el primer día.
+                </p>
+                <div className="flex flex-col gap-4">
+                  <a
+                    href="#contacto"
+                    className="text-white font-bold uppercase text-[10px] tracking-widest hover:text-white/50 transition-colors inline-flex items-center justify-between border-b border-white pb-2 w-full"
+                  >
+                    <span>Contactame</span>
+                    <span>→</span>
+                  </a>
+                  <a
+                    href="/CV_JuanPablo_Medina_new.pdf"
+                    className="text-white/50 font-bold uppercase text-[10px] tracking-widest hover:text-white transition-colors inline-flex items-center justify-between border-b border-white/20 pb-2 w-full"
+                  >
+                    <span>Descargar CV</span>
+                    <span>↓</span>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
-
         </div>
       </div>
-
     </section>
-  )
-}
+  );
+};
 
-export default About
+export default About;

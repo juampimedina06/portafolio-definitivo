@@ -1,134 +1,146 @@
-'use client'
+"use client";
 
-import React, { useRef, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { SiJavascript, SiTypescript, SiReact, SiAngular, SiNodedotjs, SiTailwindcss, SiCss3, SiSupabase, SiExpress, SiMysql, SiNextdotjs } from 'react-icons/si'
-import Card from './ui/Card'
-import BlurText from '../../components/ui/ReactBits/BlurText'
+import React, { useRef } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ArrowUpRight } from "lucide-react";
+import gsap from "gsap";
 
-const techIconsMap: Record<string, React.ElementType> = {
-  javascript: SiJavascript,
-  typescript: SiTypescript,
-  react: SiReact,
-  angular: SiAngular,
-  nodejs: SiNodedotjs,
-  tailwind: SiTailwindcss,
-  css: SiCss3,
-  supabase: SiSupabase,
-  express: SiExpress,
-  mysql: SiMysql,
-  next: SiNextdotjs
-}
+gsap.registerPlugin(ScrollTrigger);
 
 const projectsData = [
   {
     id: 1,
-    tag: 'B2B Portal',
-    title: 'Customer Portal',
-    description: 'Sistema con autenticación y roles (admin/cliente). Dashboard para seguimiento de proyectos y comunicación cliente-empresa .',
-    link: 'https://github.com/juampimedina06/customer-portal',
-    videoSrc: '/videos/gestorClientes.mp4',
-    technologies: ['next', 'react', 'typescript', 'tailwind', 'supabase'],
+    tag: "B2B / DASHBOARD",
+    title: "Customer Portal",
+    description: "Sistema con autenticación y roles (admin/cliente). Dashboard para seguimiento de proyectos y comunicación cliente-empresa.",
+    link: "https://github.com/juampimedina06/customer-portal",
+    videoSrc: "/videos/gestorClientes.mp4",
+    role: "Desarrollo Full Stack",
+    tech: "Next.js, TypeScript, Supabase, Tailwind",
+    year: "2025",
   },
   {
     id: 2,
-    tag: 'E-commerce',
-    title: 'El Pequeño Hong Kong',
-    description: 'Sistema completo de gestión de productos con panel administrador. CRUD de productos y control de stock con autenticación.',
-    link: 'https://github.com/juampimedina06/el-pequeno-hong-kong',
-    videoSrc: '/videos/elpequehongkong.mp4',
-    technologies: ['react', 'typescript', 'tailwind', 'supabase'],
+    tag: "E-COMMERCE",
+    title: "El Pequeño Hong Kong",
+    description: "Sistema completo de gestión de productos con panel administrador. CRUD de productos y control de stock.",
+    link: "https://github.com/juampimedina06/el-pequeno-hong-kong",
+    videoSrc: "/videos/elpequehongkong.mp4",
+    role: "Desarrollo Frontend & UI",
+    tech: "React, GSAP, CSS Modules",
+    year: "2025",
   },
   {
     id: 3,
-    tag: 'Gestión Deportiva',
-    title: 'Gestión Deportiva',
-    description: 'Sistema de gestión y análisis de jugadores con arquitectura cliente-servidor desacoplada. Implementación de autenticación con JWT.',
-    link: 'https://github.com/juampimedina06/fifa-list',
-    videoSrc: '/videos/jugadoresFifa.mp4',
-    technologies: ['nodejs', 'express', 'mysql', 'angular'],
-  }
-]
-
-const ProjectItem = ({ project, index }: { project: typeof projectsData[0], index: number }) => {
-  const videoRef = useRef<HTMLVideoElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) videoRef.current?.play().catch(() => { })
-        else videoRef.current?.pause()
-      },
-      { threshold: 0.5 }
-    )
-    if (videoRef.current) observer.observe(videoRef.current)
-    return () => observer.disconnect()
-  }, [])
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      className='grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center'
-    >
-      <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
-        <span style={{ fontFamily: "'DM Mono', monospace" }} className='text-[#22D3EE] text-[10px] tracking-[0.2em] uppercase'>
-          {project.tag}
-        </span>
-        <h3 className='text-2xl md:text-4xl font-medium text-white mt-2 mb-4 tracking-tight'>
-          {project.title}
-        </h3>
-        <p className='text-white/50 text-sm leading-relaxed mb-6'>
-          {project.description}
-        </p>
-        <a href={project.link} target='_blank' rel='noopener noreferrer' className='text-white/60 text-sm hover:text-[#22D3EE] transition-colors inline-flex items-center gap-2 group'>
-          Ver proyecto
-          <svg className='w-4 h-4 group-hover:translate-x-1 transition-transform' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25' />
-          </svg>
-        </a>
-        <div className='flex items-center gap-4 mt-6'>
-          {project.technologies?.map((tech, i) => {
-            const IconComponent = techIconsMap[tech.toLowerCase()]
-            if (!IconComponent) return null
-            return <IconComponent key={i} className='w-4 h-4 text-white/30 hover:text-[#22D3EE] transition-colors' />
-          })}
-        </div>
-      </div>
-
-      <div className={index % 2 === 1 ? 'lg:order-1' : ''}>
-        <Card accentColor='cyan' className='overflow-hidden group'>
-          <video ref={videoRef} src={project.videoSrc} muted loop playsInline className='w-full h-auto opacity-80 group-hover:opacity-100 transition-opacity' />
-        </Card>
-      </div>
-    </motion.div>
-  )
-}
+    tag: "SOFTWARE",
+    title: "Gestión Deportiva",
+    description: "Sistema de gestión y análisis de jugadores con arquitectura cliente-servidor desacoplada.",
+    link: "https://github.com/juampimedina06/fifa-list",
+    videoSrc: "/videos/jugadoresFifa.mp4",
+    role: "Desarrollo Backend / API",
+    tech: "Angular, Node.js, Express, PostgreSQL",
+    year: "2024",
+  },
+];
 
 const Portafolio = () => {
-  return (
-    <section id='proyectos' className='relative w-full py-24 px-6 md:px-16'>
-      <div className='max-w-7xl mx-auto'>
-        <div className='mb-20'>
-          <div className='flex items-center gap-4 mb-6'>
-            <div className='w-8 h-[1px] bg-[#22D3EE]' />
-            <span style={{ fontFamily: "'DM Mono', monospace" }} className='text-[#22D3EE] text-[10px] tracking-[0.3em] uppercase'>
-              Portfolio
-            </span>
-          </div>
-          <BlurText text='Proyectos' className='text-4xl md:text-5xl font-bold tracking-tight text-white' delay={50} />
-        </div>
+  const containerRef = useRef<HTMLElement>(null);
 
-        <div className='flex flex-col gap-24'>
-          {projectsData.map((project, index) => (
-            <ProjectItem key={project.id} project={project} index={index} />
-          ))}
-        </div>
+  return (
+    <section ref={containerRef} id="proyectos" className="relative w-full py-24 px-4 md:px-12  mt-16">
+      {/* Intro Header */}
+      <div className="mb-20">
+        <span className="text-white text-[10px] tracking-[0.3em] uppercase font-bold block mb-4">
+          [ 01 ] Portfolio
+        </span>
+        <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white">
+          Proyectos Destacados
+        </h2>
+        <p className="text-white/50 text-sm leading-relaxed max-w-sm mt-4">
+          Arquitectura limpia, rendimiento brutal. Una selección de aplicaciones diseñadas para escalar.
+        </p>
+      </div>
+
+      {/* Normal flow projects container */}
+      <div className="relative flex flex-col w-full mt-16 border-t border-white/10">
+        {projectsData.map((project, index) => (
+          <div
+            key={project.id}
+            className="w-full border-b border-white/10 py-16 md:py-24"
+          >
+            {/* Main content grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+
+              {/* Left Side: Media Showcase (Video with elegant zoom on hover) */}
+              <div className="lg:col-span-7 w-full">
+                <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-[#121214] border border-white/5 shadow-2xl group/media">
+                  <video
+                    src={project.videoSrc}
+                    muted
+                    loop
+                    autoPlay
+                    playsInline
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover/media:scale-105"
+                  />
+                  {/* Subtle inner reflection mask */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Right Side: Metadata and Info */}
+              <div className="lg:col-span-5 flex flex-col justify-between min-h-full">
+                <div>
+                  <div className="flex items-center justify-between text-[10px] tracking-[0.2em] uppercase font-bold text-white/40 mb-6">
+                    <span>{project.tag}</span>
+                    <span className="font-mono text-base text-white/20">
+                      0{index + 1}
+                    </span>
+                  </div>
+
+                  <h3 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight text-white mb-6 leading-tight transition-all duration-300">
+                    {project.title}
+                  </h3>
+
+                  <p className="text-white/60 text-sm md:text-base leading-relaxed mb-8 max-w-lg font-light">
+                    {project.description}
+                  </p>
+                </div>
+
+                {/* Specs list (Premium and integrated touch) */}
+                <div className="border-t border-white/10 pt-6 mt-4">
+                  <div className="grid grid-cols-2 gap-y-4 gap-x-8 text-xs mb-8">
+                    <div>
+                      <span className="text-white/30 text-[9px] uppercase tracking-wider block mb-1">Rol</span>
+                      <span className="text-white/80 font-medium">{project.role}</span>
+                    </div>
+                    <div>
+                      <span className="text-white/30 text-[9px] uppercase tracking-wider block mb-1">Año</span>
+                      <span className="text-white/80 font-medium">{project.year}</span>
+                    </div>
+                    <div className="col-span-2">
+                      <span className="text-white/30 text-[9px] uppercase tracking-wider block mb-1">Stack</span>
+                      <span className="text-white/80 font-medium">{project.tech}</span>
+                    </div>
+                  </div>
+
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/link text-white font-medium uppercase text-[11px] tracking-wider hover:text-white/80 transition-colors inline-flex items-center gap-1.5 w-max border-b border-white/20 hover:border-white pb-1.5"
+                  >
+                    Ver Código Fuente
+                    <ArrowUpRight className="w-4 h-4 text-white/40 group-hover/link:text-white group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform duration-300" />
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        ))}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Portafolio
+export default Portafolio;
