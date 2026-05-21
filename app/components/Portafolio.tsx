@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,7 +15,7 @@ const projectsData = [
     title: "Customer Portal",
     description: "Sistema con autenticación y roles (admin/cliente). Dashboard para seguimiento de proyectos y comunicación cliente-empresa.",
     link: "https://github.com/juampimedina06/customer-portal",
-    videoSrc: "/videos/gestorClientes.mp4",
+    imagen: '/imagenes/Qlienta/imagen_qlienta.png',
     role: "Desarrollo Full Stack",
     tech: "Next.js, TypeScript, Supabase, Tailwind",
     year: "2025",
@@ -25,21 +26,21 @@ const projectsData = [
     title: "El Pequeño Hong Kong",
     description: "Sistema completo de gestión de productos con panel administrador. CRUD de productos y control de stock.",
     link: "https://github.com/juampimedina06/el-pequeno-hong-kong",
-    videoSrc: "/videos/elpequehongkong.mp4",
-    role: "Desarrollo Frontend & UI",
+    imagen: '/imagenes/Elpeque/el_peque.png',
+    role: "Desarrollo Full Stack",
     tech: "React, GSAP, CSS Modules",
     year: "2025",
   },
   {
     id: 3,
-    tag: "SOFTWARE",
-    title: "Gestión Deportiva",
-    description: "Sistema de gestión y análisis de jugadores con arquitectura cliente-servidor desacoplada.",
-    link: "https://github.com/juampimedina06/fifa-list",
-    videoSrc: "/videos/jugadoresFifa.mp4",
-    role: "Desarrollo Backend / API",
-    tech: "Angular, Node.js, Express, PostgreSQL",
-    year: "2024",
+    tag: "SITIO DE INTERCAMBIOS",
+    title: "CircularLocal",
+    description: "E-commerce diseñado para la compraventa de productos entre usuarios.",
+    link: "",
+    imagen: "/imagenes/CircularLocal/circularlocal.png",
+    role: "Desarrollo Full Stack",
+    tech: "",
+    year: "",
   },
 ];
 
@@ -74,13 +75,11 @@ const Portafolio = () => {
               {/* Left Side: Media Showcase (Video with elegant zoom on hover) */}
               <div className="lg:col-span-7 w-full">
                 <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-[#121214] border border-white/5 shadow-2xl group/media">
-                  <video
-                    src={project.videoSrc}
-                    muted
-                    loop
-                    autoPlay
-                    playsInline
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover/media:scale-105"
+                  <Image
+                    src={project.imagen}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-700 ease-out group-hover/media:scale-105"
                   />
                   {/* Subtle inner reflection mask */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 pointer-events-none" />
