@@ -29,6 +29,7 @@ export interface StaggeredMenuProps {
     closeOnClickAway?: boolean;
     onMenuOpen?: () => void;
     onMenuClose?: () => void;
+    onItemClick?: (item: StaggeredMenuItem) => void;
     isFixed?: boolean;
 }
 
@@ -47,7 +48,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     isFixed = false,
     closeOnClickAway = true,
     onMenuOpen,
-    onMenuClose
+    onMenuClose,
+    onItemClick
 }: StaggeredMenuProps) => {
     const [open, setOpen] = useState(false);
     const openRef = useRef(false);
@@ -433,7 +435,18 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                         {items && items.length ? (
                             items.map((it, idx) => (
                                 <li className="sm-panel-itemWrap" key={it.label + idx}>
-                                    <a className="sm-panel-item" href={it.link} aria-label={it.ariaLabel} data-index={idx + 1}>
+                                    <a
+                                        className="sm-panel-item"
+                                        href={it.link}
+                                        aria-label={it.ariaLabel}
+                                        data-index={idx + 1}
+                                        onClick={(e) => {
+                                            if (onItemClick) {
+                                                e.preventDefault();
+                                                onItemClick(it);
+                                            }
+                                        }}
+                                    >
                                         <span className="sm-panel-itemLabel ">{it.label}</span>
                                     </a>
                                 </li>

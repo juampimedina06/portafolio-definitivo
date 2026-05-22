@@ -8,7 +8,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="sticky top-0 z-[20] w-full h-screen flex flex-col justify-between py-6 md:py-12 px-4 sm:px-8 md:px-16 lg:px-20 bg-[#140d0a] overflow-hidden shadow-2xl shadow-black/50">
+    <footer id='contacto' className="sticky top-0 z-[20] w-full h-screen flex flex-col justify-between py-6 md:py-12 px-4 sm:px-8 md:px-16 lg:px-20 bg-[#140d0a] overflow-hidden shadow-2xl shadow-black/50">
       {/* Iridescence Background */}
       <div className="absolute inset-0 z-0">
         <Iridescence mouseReact amplitude={0.05} speed={0.8} />
@@ -34,7 +34,7 @@ const Footer = () => {
 
             {/* CTA Button */}
             <a
-              href="mailto:jpmedinagomez1@gmail.com"
+              href='https://www.linkedin.com/in/juan-pablo-medina-199b3b2b4/'
               className="inline-block bg-white text-black font-black uppercase text-[8px] md:text-[10px] tracking-[0.2em] px-6 py-2.5 md:px-8 md:py-4 rounded-full hover:bg-gray-500 hover:text-white transition-all duration-500 transform hover:scale-105 w-fit shadow-lg shadow-black/30"
             >
               Contactame

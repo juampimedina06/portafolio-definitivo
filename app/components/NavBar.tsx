@@ -1,15 +1,16 @@
 'use client'
-import StaggeredMenu from "@/components/ui/ReactBits/StaggeredMenu/StaggeredMenu"
+import { useRouter, usePathname } from "next/navigation"
+import StaggeredMenu, { type StaggeredMenuItem } from "@/components/ui/ReactBits/StaggeredMenu/StaggeredMenu"
+import { getLenis } from "@/components/ui/SmoothScroll"
 
 const menuItems = [
-  { label: 'Inicio', ariaLabel: 'Go to home page', link: '/' },
-  { label: 'Sobre mi', ariaLabel: 'Go to about page', link: '/#about' },
-  { label: 'Proyectos', ariaLabel: 'Go to projects page', link: '/#projects' },
-  { label: 'Experiencia', ariaLabel: 'Go to experience page', link: '/#experience' },
+  { label: 'Inicio', ariaLabel: 'Go to home page', link: '/#inicio' },
+  { label: 'Sobre mi', ariaLabel: 'Go to about page', link: '/#sobre-mi' },
+  { label: 'Experiencia', ariaLabel: 'Go to experience page', link: '/#experiencia' },
   { label: 'Skills', ariaLabel: 'Go to skills page', link: '/#skills' },
-  { label: 'Formaciones', ariaLabel: 'Go to formations page', link: '/#formations' },
-  { label: 'Contacto', ariaLabel: 'Go to contact page', link: '/#contact' },
-
+  { label: 'Proyectos', ariaLabel: 'Go to projects page', link: '/#proyectos' },
+  { label: 'Formaciones', ariaLabel: 'Go to formations page', link: '/#formaciones' },
+  { label: 'Contacto', ariaLabel: 'Go to contact page', link: '/#contacto' },
 ];
 
 const socialItems = [
@@ -18,6 +19,26 @@ const socialItems = [
 ];
 
 const NavBar = () => {
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const handleNavClick = (item: StaggeredMenuItem) => {
+    const isOnHome = pathname === "/"
+    const isHashLink = item.link.startsWith("/#")
+
+    if (isOnHome && isHashLink) {
+      const id = item.link.slice(2)
+      const el = document.getElementById(id)
+      const lenis = getLenis()
+      if (el && lenis) {
+        lenis.scrollTo(el, { duration: 1.8, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) })
+        return
+      }
+    }
+
+    router.push(item.link)
+  }
+
   return (
     <header className="fixed z-[100] w-full h-16">
       <StaggeredMenu
@@ -27,15 +48,14 @@ const NavBar = () => {
         socialItems={socialItems}
         displaySocials
         displayItemNumbering={true}
-        /* Button color — matches portfolio cyan palette */
         menuButtonColor="#e2f8fd"
         openMenuButtonColor="#22D3EE"
         changeMenuColorOnOpen={true}
-        /* Sweep layer colors — deep navy to match dark glass panel */
         colors={['#000000ff', '#000000ff']}
         accentColor="#22D3EE"
         onMenuOpen={() => console.log('Menu opened')}
         onMenuClose={() => console.log('Menu closed')}
+        onItemClick={handleNavClick}
       />
     </header>
   )

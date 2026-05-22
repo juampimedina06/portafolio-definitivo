@@ -4,6 +4,7 @@ import Experiences from "./components/Experiences";
 import Formations from "./components/Formations";
 import Skills from "./components/Skills";
 import Portafolio from "./components/Portafolio";
+import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
 
@@ -32,7 +33,7 @@ export default function Home() {
       <div className="h-[140vh]">
         <Formations />
       </div>
-      <div className="h-[200vh] -mt-[100vh]">
+      <div className="h-[100vh]">
         <Footer />
       </div>
     </main>

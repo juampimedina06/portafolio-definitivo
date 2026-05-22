@@ -8,7 +8,7 @@ import './Carousel.css';
 import CountUp from '../Count/CountUp';
 
 export interface CarouselItem {
-  signo:string;
+  signo: string;
   title: number;
   description: string;
   id: number;
@@ -27,25 +27,25 @@ export interface CarouselProps {
 const DEFAULT_ITEMS: CarouselItem[] = [
   {
     id: 1,
-    signo:"...",
+    signo: "...",
     title: 54,
     description: "Repositorios en GitHub",
   },
   {
     id: 2,
-    signo:"+",
-    title: 2,
+    signo: "+",
+    title: 3,
     description: "Años desarrollando aplicaciones web",
   },
   {
     id: 3,
-    signo:"k",
-    title: 1142,
-    description: "Seguidores en LinkedIn",
+    signo: "+",
+    title: 5,
+    description: "Proyectos full stack desarrollados",
   },
   {
     id: 4,
-    signo:"+",
+    signo: "+",
     title: 800,
     description: "Commits realizados",
   }
@@ -224,11 +224,11 @@ export default function Carousel({
   const dragProps = loop
     ? {}
     : {
-        dragConstraints: {
-          left: -trackItemOffset * Math.max(itemsForRender.length - 1, 0),
-          right: 0
-        }
-      };
+      dragConstraints: {
+        left: -trackItemOffset * Math.max(itemsForRender.length - 1, 0),
+        right: 0
+      }
+    };
 
   const activeIndex =
     items.length === 0 ? 0 : loop ? (position - 1 + items.length) % items.length : Math.min(position, items.length - 1);

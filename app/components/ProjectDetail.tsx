@@ -12,11 +12,16 @@ import type { Project } from "@/lib/projects"
 gsap.registerPlugin(ScrollTrigger)
 
 const extraCircularImages = [
+  { src: "/imagenes/CircularLocal/circular_login.jpg", alt: "Pantalla de login" },
+  { src: "/imagenes/CircularLocal/circular_registro.jpg", alt: "Pantalla de registro" },
+  { src: "/imagenes/CircularLocal/circular_inicio.jpg", alt: "Página de inicio" },
   { src: "/imagenes/CircularLocal/circular_solicitudesRecibidas.jpg", alt: "Solicitudes recibidas" },
   { src: "/imagenes/CircularLocal/circular_solicitudesEnviadas.jpg", alt: "Solicitudes enviadas" },
   { src: "/imagenes/CircularLocal/circular_gestionUsuarios.jpg", alt: "Gestión de usuarios" },
   { src: "/imagenes/CircularLocal/circular_moderacion.jpg", alt: "Moderación" },
   { src: "/imagenes/CircularLocal/circular_metricas.jpg", alt: "Métricas" },
+  { src: "/imagenes/CircularLocal/circular_subirPublicacion.jpg", alt: "Formulario de publicación" },
+
 ]
 
 const extraQlientaImages = [
@@ -81,7 +86,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
               stagger: 0.15,
               ease: "power3.out",
             },
-            "-=0.3"
+            "-=0.3",
           )
         }
       })
@@ -92,8 +97,8 @@ export default function ProjectDetail({ project }: { project: Project }) {
 
   const extraImages =
     project.slug === "circularlocal" ? extraCircularImages :
-    project.slug === "qlienta" ? extraQlientaImages :
-    null
+      project.slug === "qlienta" ? extraQlientaImages :
+        null
 
   return (
     <>
@@ -108,10 +113,9 @@ export default function ProjectDetail({ project }: { project: Project }) {
               src={project.heroImage}
               alt={project.title}
               fill
-              className="object-cover"
+              className="object-cover opacity-30"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/30" />
           </div>
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#1a1a1a]" />
@@ -302,9 +306,11 @@ function SectionBlock({
           data-animate-text
           className={`${section.images.length > 0 ? "lg:col-span-5" : "lg:col-span-8 lg:col-start-3"} ${isLeft ? "lg:order-2" : "lg:order-1"}`}
         >
-          <p className="text-white/70 text-base md:text-lg leading-relaxed">
-            {section.text}
-          </p>
+          <div className="text-white/85 text-base md:text-lg leading-relaxed space-y-5">
+            {section.text.map((paragraph, i) => (
+              <p key={i}>{paragraph}</p>
+            ))}
+          </div>
         </div>
       </div>
     </section>

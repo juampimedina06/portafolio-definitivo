@@ -45,7 +45,7 @@ const Portafolio = () => {
 
               {/* Left Side: Media Showcase (Video with elegant zoom on hover) */}
               <div className="lg:col-span-7 w-full">
-                <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-[#121214] border border-white/5 shadow-2xl group/media">
+                <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-[#121214] border border-white/5 shadow-2xl group/media">
                   <Image
                     src={project.imagen}
                     alt={project.title}
@@ -60,20 +60,41 @@ const Portafolio = () => {
               {/* Right Side: Metadata and Info */}
               <div className="lg:col-span-5 flex flex-col justify-between min-h-full">
                 <div>
-                  <div className="flex items-center justify-between text-[10px] tracking-[0.2em] uppercase font-bold text-white/40 mb-6">
-                    <span>{project.tag}</span>
-                    <span className="font-mono text-base text-white/20">
-                      0{index + 1}
-                    </span>
-                  </div>
-
-                  <h3 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight text-white mb-6 leading-tight transition-all duration-300">
+                  <h3 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight text-white mb-6 leading-tight transition-all duration-300">
                     {project.title}
                   </h3>
 
-                  <p className="text-white/60 text-sm md:text-base leading-relaxed mb-8 max-w-lg font-light">
+                  <p className="text-white/50 text-sm md:text-lg mb-8 max-w-[80ch]  ">
                     {project.description}
                   </p>
+
+                  <div className="mt-6">
+                    <div className="mt-8 border-t border-white/10 pt-4">
+                      {/* Encabezado sutil estilo Suizo (opcional, pero le da el contexto analítico) */}
+                      <p className="text-[10px] font-bold  tracking-[0.2em] text-white/40 mb-4 ">
+                        Implementaciones Técnicas
+                      </p>
+
+                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
+                        {project.implementaciones.map((implementation, index) => (
+                          <li
+                            key={index}
+                            className="group flex items-baseline gap-3 border-b border-white/[0.04] pb-2 font-mono text-xs text-white/70 hover:text-white transition-colors duration-200"
+                          >
+                            {/* Indicador numérico minimalista (ej. 01, 02) */}
+                            <span className="text-[9px] font-bold tracking-wider text-white/30 group-hover:text-sky-400 transition-colors">
+                              {(index + 1).toString().padStart(2, '0')}
+                            </span>
+
+                            {/* Texto principal chico y refinado */}
+                            <span className="font-sans font-normal tracking-wide leading-tight">
+                              {implementation}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Specs list (Premium and integrated touch) */}
@@ -93,18 +114,15 @@ const Portafolio = () => {
                     </div>
                   </div>
 
-                  {project.githubLink && (
-                    <a
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="group/link text-white font-medium uppercase text-[11px] tracking-wider hover:text-white/80 transition-colors inline-flex items-center gap-1.5 w-max border-b border-white/20 hover:border-white pb-1.5"
+                  <div className="border-t border-white/10 pt-6">
+                    <button
+                      className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-all group font-mono text-[10px] uppercase tracking-wider"
+                      onClick={() => router.push(`/proyectos/${project.slug}`)}
                     >
-                      Ver Código Fuente
-                      <ArrowUpRight className="w-4 h-4 text-white/40 group-hover/link:text-white group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform duration-300" />
-                    </a>
-                  )}
+                      <span>Ver Proyecto Completo</span>
+                      <ArrowUpRight className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    </button>
+                  </div>
                 </div>
               </div>
 

@@ -4,6 +4,7 @@ import "./globals.css";
 import NavBar from "@/app/components/NavBar";
 import Container from "@/components/Container";
 import SmoothScroll from "@/components/ui/SmoothScroll";
+import ScrollToTop from "@/components/ui/ScrollToTop";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -26,6 +27,7 @@ export default function RootLayout({
         className={`${plusJakartaSans.variable} antialiased font-sans bg-black`}
       >
         <SmoothScroll />
+        <ScrollToTop />
         <Container>
           <div className=''>
             <NavBar />
