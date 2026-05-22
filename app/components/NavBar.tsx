@@ -3,12 +3,12 @@ import StaggeredMenu from "@/components/ui/ReactBits/StaggeredMenu/StaggeredMenu
 
 const menuItems = [
   { label: 'Inicio', ariaLabel: 'Go to home page', link: '/' },
-  { label: 'Sobre mi', ariaLabel: 'Go to about page', link: '#about' },
-  { label: 'Proyectos', ariaLabel: 'Go to projects page', link: '#projects' },
-  { label: 'Experiencia', ariaLabel: 'Go to experience page', link: '#experience' },
-  { label: 'Skills', ariaLabel: 'Go to skills page', link: '#skills' },
-  { label: 'Formaciones', ariaLabel: 'Go to formations page', link: '#formations' },
-  { label: 'Contacto', ariaLabel: 'Go to contact page', link: '#contact' },
+  { label: 'Sobre mi', ariaLabel: 'Go to about page', link: '/#about' },
+  { label: 'Proyectos', ariaLabel: 'Go to projects page', link: '/#projects' },
+  { label: 'Experiencia', ariaLabel: 'Go to experience page', link: '/#experience' },
+  { label: 'Skills', ariaLabel: 'Go to skills page', link: '/#skills' },
+  { label: 'Formaciones', ariaLabel: 'Go to formations page', link: '/#formations' },
+  { label: 'Contacto', ariaLabel: 'Go to contact page', link: '/#contact' },
 
 ];
 

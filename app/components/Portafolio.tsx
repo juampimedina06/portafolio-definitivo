@@ -5,47 +5,15 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+import { projects } from "@/lib/projects";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const projectsData = [
-  {
-    id: 1,
-    tag: "B2B / DASHBOARD",
-    title: "Customer Portal",
-    description: "Sistema con autenticación y roles (admin/cliente). Dashboard para seguimiento de proyectos y comunicación cliente-empresa.",
-    link: "https://github.com/juampimedina06/customer-portal",
-    imagen: '/imagenes/Qlienta/imagen_qlienta.png',
-    role: "Desarrollo Full Stack",
-    tech: "Next.js, TypeScript, Supabase, Tailwind",
-    year: "2025",
-  },
-  {
-    id: 2,
-    tag: "E-COMMERCE",
-    title: "El Pequeño Hong Kong",
-    description: "Sistema completo de gestión de productos con panel administrador. CRUD de productos y control de stock.",
-    link: "https://github.com/juampimedina06/el-pequeno-hong-kong",
-    imagen: '/imagenes/Elpeque/el_peque.png',
-    role: "Desarrollo Full Stack",
-    tech: "React, GSAP, CSS Modules",
-    year: "2025",
-  },
-  {
-    id: 3,
-    tag: "SITIO DE INTERCAMBIOS",
-    title: "CircularLocal",
-    description: "E-commerce diseñado para la compraventa de productos entre usuarios.",
-    link: "",
-    imagen: "/imagenes/CircularLocal/circularlocal.png",
-    role: "Desarrollo Full Stack",
-    tech: "",
-    year: "",
-  },
-];
-
 const Portafolio = () => {
   const containerRef = useRef<HTMLElement>(null);
+  const router = useRouter();
 
   return (
     <section ref={containerRef} id="proyectos" className="relative w-full py-24 px-4 md:px-12  mt-16">
@@ -64,10 +32,13 @@ const Portafolio = () => {
 
       {/* Normal flow projects container */}
       <div className="relative flex flex-col w-full mt-16 border-t border-white/10">
-        {projectsData.map((project, index) => (
+        {projects.map((project, index) => (
           <div
-            key={project.id}
-            className="w-full border-b border-white/10 py-16 md:py-24"
+            key={project.slug}
+            onClick={() => {
+              router.push(`/proyectos/${project.slug}`, { scroll: true })
+            }}
+            className="w-full border-b border-white/10 py-16 md:py-24 cursor-pointer transition-colors hover:bg-white/[0.01]"
           >
             {/* Main content grid */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
@@ -122,15 +93,18 @@ const Portafolio = () => {
                     </div>
                   </div>
 
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group/link text-white font-medium uppercase text-[11px] tracking-wider hover:text-white/80 transition-colors inline-flex items-center gap-1.5 w-max border-b border-white/20 hover:border-white pb-1.5"
-                  >
-                    Ver Código Fuente
-                    <ArrowUpRight className="w-4 h-4 text-white/40 group-hover/link:text-white group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform duration-300" />
-                  </a>
+                  {project.githubLink && (
+                    <a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="group/link text-white font-medium uppercase text-[11px] tracking-wider hover:text-white/80 transition-colors inline-flex items-center gap-1.5 w-max border-b border-white/20 hover:border-white pb-1.5"
+                    >
+                      Ver Código Fuente
+                      <ArrowUpRight className="w-4 h-4 text-white/40 group-hover/link:text-white group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform duration-300" />
+                    </a>
+                  )}
                 </div>
               </div>
 
@@ -138,7 +112,7 @@ const Portafolio = () => {
           </div>
         ))}
       </div>
-    </section>
+    </section >
   );
 };
 
