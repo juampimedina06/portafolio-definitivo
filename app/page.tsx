@@ -30,10 +30,10 @@ export default function Home() {
         <Portafolio />
       </div>
 
-      <div className="h-[140vh]">
+      <div className="">
         <Formations />
       </div>
-      <div className="h-[100vh]">
+      <div className="h-[200vh] -mt-[100vh]">
         <Footer />
       </div>
     </main>
