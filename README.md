@@ -94,7 +94,6 @@ Para ejecutar este proyecto en tu entorno local:
 
 - **LinkedIn:** [Juan Pablo Medina](https://www.linkedin.com/in/juan-pablo-medina-199b3b2b4/)
 - **Email:** [jpmedinagomez1@gmail.com](mailto:jpmedinagomez1@gmail.com)
-- **Portafolio:** [juampimedina.dev](https://juampimedina.dev) *(Actualiza con tu URL real)*
 
 ---
 
